@@ -182,15 +182,6 @@ body{
 .nbtn:hover{background:rgba(84,105,212,.2)}
 #sctr{color:var(--off);font-size:11px;min-width:40px;text-align:center;letter-spacing:.5px}
 
-#pdots{
-  position:fixed;bottom:14px;right:130px;
-  display:flex;align-items:center;gap:5px;z-index:300;
-  background:rgba(11,13,28,.92);backdrop-filter:blur(12px);
-  padding:8px 14px;border-radius:10px;
-  border:1px solid rgba(255,255,255,.1);
-}
-.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .3s}
-.dot.on{background:var(--blue);transform:scale(1.4)}
 
 #fsb{
   position:fixed;top:16px;right:16px;z-index:300;

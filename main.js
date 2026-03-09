@@ -1,14 +1,6 @@
 const TOTAL=14, slides=Array.from(document.querySelectorAll('.slide'));
 let cur=0;
 
-// dots
-const dotsEl=document.getElementById('pdots');
-slides.forEach((_,i)=>{
-  const d=document.createElement('div');
-  d.className='dot'+(i===0?' on':'');
-  d.onclick=()=>goTo(i);
-  dotsEl.appendChild(d);
-});
 
 // scale
 const deck=document.getElementById('deck');
@@ -84,7 +76,6 @@ function goTo(idx){
   slides[cur].classList.add('active');
   setTimeout(()=>triggerAnims(cur),60);
   document.getElementById('sctr').textContent=(cur+1)+' / '+TOTAL;
-  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===cur));
 }
 function next(){if(cur<TOTAL-1)goTo(cur+1);}
 function prev(){if(cur>0)goTo(cur-1);}
