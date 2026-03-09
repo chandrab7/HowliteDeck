@@ -24,14 +24,14 @@ scale(); window.addEventListener('resize',scale);
 function clearAnims(idx){
   const sl=slides[idx];
   sl.querySelectorAll('.a-up,.a-left,.a-right,.a-pop,.a-fade').forEach(e=>e.classList.remove('on'));
-  if(idx===5) resetFlow();
+  if(idx===3) resetFlow();
 }
 function triggerAnims(idx){
   const sl=slides[idx];
   sl.querySelectorAll('.a-up,.a-left,.a-right,.a-pop,.a-fade').forEach(e=>{
     setTimeout(()=>e.classList.add('on'), parseInt(e.dataset.delay||0));
   });
-  if(idx===5) setTimeout(animateFlow, 300);
+  if(idx===3) setTimeout(animateFlow, 300);
 }
 
 // Flow animation S6
