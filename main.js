@@ -1,4 +1,4 @@
-const TOTAL=13, slides=Array.from(document.querySelectorAll('.slide'));
+const TOTAL=14, slides=Array.from(document.querySelectorAll('.slide'));
 let cur=0;
 
 // dots
