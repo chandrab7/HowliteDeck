@@ -1,6 +1,19 @@
 const TOTAL=14, slides=Array.from(document.querySelectorAll('.slide'));
 let cur=0;
 
+// Season detection
+function getSeason(date) {
+  const d = date || new Date();
+  const month = d.getMonth(); // 0-indexed
+  const day = d.getDate();
+  if ((month === 2 && day >= 20) || (month > 2 && month < 5) || (month === 5 && day < 21)) return 'Spring';
+  if ((month === 5 && day >= 21) || (month > 5 && month < 8) || (month === 8 && day < 22)) return 'Summer';
+  if ((month === 8 && day >= 22) || (month > 8 && month < 11) || (month === 11 && day < 21)) return 'Autumn';
+  return 'Winter';
+}
+const currentSeason = getSeason();
+document.documentElement.setAttribute('data-season', currentSeason.toLowerCase());
+
 
 // scale
 const deck=document.getElementById('deck');
