@@ -40,10 +40,10 @@
             --font-body: 'DM Sans', sans-serif;
             --font-mono: 'IBM Plex Mono', monospace;
 
-            --title-size: clamp(1.8rem, 5vw, 3.5rem);
-            --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
-            --small-size: clamp(0.65rem, 0.9vw, 0.8rem);
-            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --title-size: clamp(2rem, 5.5vw, 4rem);
+            --body-size: clamp(0.85rem, 1.5vw, 1.2rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --slide-padding: clamp(1rem, 3vw, 2.5rem);
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -203,7 +203,7 @@
            S1: HERO — Asymmetric, left-aligned
            =========================================== */
         #s1 .slide-inner {
-            max-width: min(90vw, 900px);
+            max-width: min(94vw, 1200px);
         }
 
         .hero-tag {
@@ -212,17 +212,17 @@
         }
 
         .hero-title {
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(3.5rem, 11vw, 8rem);
             letter-spacing: -0.04em;
             line-height: 0.95;
             margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
         }
 
         .hero-sub {
-            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-size: clamp(1.1rem, 2.2vw, 1.6rem);
             color: var(--text-dim);
             font-weight: 400;
-            max-width: 500px;
+            max-width: 700px;
             line-height: 1.4;
             margin-bottom: clamp(1rem, 2vh, 1.5rem);
         }
@@ -275,7 +275,7 @@
         .impact-num {
             font-family: var(--font-display);
             font-weight: 800;
-            font-size: clamp(5rem, 18vw, 14rem);
+            font-size: clamp(5rem, 18vw, 15rem);
             line-height: 0.85;
             letter-spacing: -0.04em;
             background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.35) 100%);
@@ -287,7 +287,7 @@
         .impact-sub {
             font-size: clamp(0.9rem, 1.8vw, 1.3rem);
             color: #9CA3AF;
-            max-width: 450px;
+            max-width: 650px;
         }
 
         .impact-stats {
@@ -314,7 +314,7 @@
            =========================================== */
         #s3 .slide-inner {
             gap: clamp(1rem, 2.5vh, 2rem);
-            max-width: min(90vw, 850px);
+            max-width: min(94vw, 1100px);
         }
 
         .fault-list {
@@ -373,7 +373,7 @@
         }
 
         .flow-diagram {
-            width: min(90vw, 900px);
+            width: min(94vw, 1200px);
             display: flex;
             flex-direction: column;
             gap: clamp(0.5rem, 1.5vh, 1.25rem);
@@ -610,7 +610,7 @@
         }
 
         .terminal {
-            width: min(90vw, 680px);
+            width: min(94vw, 900px);
             background: var(--bg-dark);
             border-radius: clamp(10px, 1.2vw, 14px);
             overflow: hidden;
@@ -765,7 +765,7 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: clamp(0.5rem, 1vw, 0.75rem);
-            width: min(90vw, 750px);
+            width: min(94vw, 1100px);
         }
 
         @media (max-width: 640px) {
@@ -796,7 +796,7 @@
             display: flex; flex-wrap: wrap;
             gap: clamp(0.25rem, 0.5vw, 0.4rem);
             justify-content: center;
-            max-width: min(90vw, 600px);
+            max-width: min(94vw, 900px);
         }
 
         .council span {
@@ -816,7 +816,7 @@
         .market-num {
             font-family: var(--font-display);
             font-weight: 800;
-            font-size: clamp(5rem, 16vw, 12rem);
+            font-size: clamp(5rem, 18vw, 14rem);
             line-height: 0.85;
             color: #34D399;
             text-shadow: 0 0 80px rgba(52, 211, 153, 0.2);
@@ -1431,7 +1431,7 @@
         <div class="slide-inner stagger" style="align-items:center; text-align:center; gap:clamp(0.5rem,1.5vh,1.25rem);">
             <p class="reveal" style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:#6B7280;">The Market</p>
             <div class="market-num reveal">$200B+</div>
-            <p class="reveal" style="font-size:clamp(0.9rem,1.8vw,1.3rem); color:#9CA3AF; max-width:450px;">Annual HSA/FSA card payments.<br><em>First mover in stablecoin healthcare settlement.</em></p>
+            <p class="reveal" style="font-size:clamp(1rem,2vw,1.4rem); color:#9CA3AF; max-width:650px;">Annual HSA/FSA card payments.<br><em>First mover in stablecoin healthcare settlement.</em></p>
             <div class="market-stats reveal">
                 <div><div class="ms-val" style="color:#34D399;">70M+</div><div class="ms-label">Cardholders</div></div>
                 <div><div class="ms-val" style="color:#60A5FA;">12.5%</div><div class="ms-label">CAGR</div></div>
