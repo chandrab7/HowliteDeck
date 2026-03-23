@@ -4,81 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Howlite — The Unaffiliated Payment Network</title>
-
-    <!-- Fonts: Bodoni Moda (dramatic serif), Outfit (clean sans), Space Mono (data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Outfit:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         /* ===========================================
-           CSS CUSTOM PROPERTIES — MINERAL NOIR THEME
-           Inspired by howlite mineral: warm cream on
-           deep black, crystalline green accents
+           THE TWO WORLDS — Light editorial theme
+           Warm paper base, dark impact sections,
+           typography-driven, varied layouts
            =========================================== */
         :root {
-            /* Base */
-            --bg: #060608;
-            --surface: #0d0d11;
-            --elevated: #151519;
+            --bg: #F7F6F3;
+            --bg-dark: #111827;
+            --surface: #FFFFFF;
+            --text: #1A1A1A;
+            --text-dim: #6B7280;
+            --text-light: #9CA3AF;
+            --brand: #059669;
+            --brand-light: #D1FAE5;
+            --brand-dark: #065F46;
+            --danger: #DC2626;
+            --danger-light: #FEE2E2;
+            --blue: #2563EB;
+            --blue-light: #DBEAFE;
+            --purple: #7C3AED;
+            --purple-light: #EDE9FE;
+            --amber: #D97706;
+            --amber-light: #FEF3C7;
+            --border: rgba(0,0,0,0.08);
+            --border-dark: rgba(255,255,255,0.1);
 
-            /* Howlite Mineral Colors */
-            --howlite: #e8e4de;
-            --howlite-dim: rgba(232, 228, 222, 0.5);
-            --howlite-faint: rgba(232, 228, 222, 0.1);
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
 
-            /* Accents */
-            --crystal: #00dc82;
-            --crystal-dim: rgba(0, 220, 130, 0.12);
-            --signal: #3b82f6;
-            --signal-dim: rgba(59, 130, 246, 0.12);
-            --mineral: #c9a96e;
-            --mineral-dim: rgba(201, 169, 110, 0.12);
-            --danger: #ef4444;
-            --danger-dim: rgba(239, 68, 68, 0.1);
-            --purple: #8b5cf6;
-            --purple-dim: rgba(139, 92, 246, 0.12);
-
-            /* Borders */
-            --border: rgba(232, 228, 222, 0.06);
-            --border-accent: rgba(232, 228, 222, 0.12);
-
-            /* Typography */
-            --font-display: 'Bodoni Moda', serif;
-            --font-body: 'Outfit', sans-serif;
-            --font-mono: 'Space Mono', monospace;
-
-            /* Responsive sizing via clamp() */
-            --title-size: clamp(1.5rem, 5vw, 4rem);
-            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
-            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
-            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
-            --small-size: clamp(0.65rem, 1vw, 0.875rem);
-            --slide-padding: clamp(1rem, 4vw, 4rem);
-            --content-gap: clamp(0.5rem, 2vw, 2rem);
-            --element-gap: clamp(0.25rem, 1vw, 1rem);
-
-            /* Animation */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-            --duration: 0.7s;
+            --title-size: clamp(1.8rem, 5vw, 3.5rem);
+            --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
+            --small-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ===========================================
-           VIEWPORT FITTING: MANDATORY BASE STYLES
-           =========================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow-x: hidden; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
 
-        html, body {
-            height: 100%;
-            overflow-x: hidden;
-        }
-
-        html {
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
         }
 
         .slide {
@@ -90,9 +67,15 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            background: var(--bg);
         }
 
-        .slide-content {
+        .slide.dark {
+            background: var(--bg-dark);
+            color: #F9FAFB;
+        }
+
+        .slide-inner {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -100,45 +83,73 @@
             max-height: 100%;
             overflow: hidden;
             padding: var(--slide-padding);
+            position: relative;
+            z-index: 1;
         }
 
-        img {
-            max-width: 100%;
-            max-height: min(50vh, 400px);
-            object-fit: contain;
+        h1, h2, h3, .display {
+            font-family: var(--font-display);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
         }
 
-        /* Short viewports */
+        .mono { font-family: var(--font-mono); }
+
+        .tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: clamp(0.55rem, 0.75vw, 0.7rem);
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: clamp(0.2rem, 0.3vw, 0.3rem) clamp(0.5rem, 0.8vw, 0.7rem);
+            border-radius: 4px;
+            margin-bottom: clamp(0.5rem, 1vh, 0.75rem);
+        }
+
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(clamp(12px, 2vh, 24px));
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.93);
+            transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+        }
+        .slide.visible .reveal,
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: none;
+        }
+        .stagger > *:nth-child(1) { transition-delay: 0.05s; }
+        .stagger > *:nth-child(2) { transition-delay: 0.13s; }
+        .stagger > *:nth-child(3) { transition-delay: 0.21s; }
+        .stagger > *:nth-child(4) { transition-delay: 0.29s; }
+        .stagger > *:nth-child(5) { transition-delay: 0.37s; }
+        .stagger > *:nth-child(6) { transition-delay: 0.45s; }
+        .stagger > *:nth-child(7) { transition-delay: 0.53s; }
+
+        /* --- Responsive --- */
         @media (max-height: 700px) {
             :root {
-                --slide-padding: clamp(0.75rem, 3vw, 2rem);
-                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
-                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
-                --h2-size: clamp(1rem, 3vw, 1.75rem);
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --title-size: clamp(1.4rem, 4vw, 2.5rem);
             }
         }
-        @media (max-height: 600px) {
+        @media (max-height: 550px) {
             :root {
-                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
-                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
-                --title-size: clamp(1.1rem, 4vw, 2rem);
-                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+                --slide-padding: clamp(0.75rem, 2vw, 1.5rem);
+                --title-size: clamp(1.1rem, 3.5vw, 2rem);
+                --body-size: clamp(0.7rem, 1vw, 0.9rem);
             }
-            .nav-dots, .decorative { display: none; }
+            .nav-dots { display: none; }
         }
-        @media (max-height: 500px) {
-            :root {
-                --slide-padding: clamp(0.4rem, 2vw, 1rem);
-                --title-size: clamp(1rem, 3.5vw, 1.5rem);
-                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
-                --body-size: clamp(0.65rem, 1vw, 0.85rem);
-            }
+        @media (max-width: 640px) {
+            :root { --title-size: clamp(1.4rem, 7vw, 2.5rem); }
         }
-        @media (max-width: 600px) {
-            :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
-            .grid { grid-template-columns: 1fr; }
-        }
-
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -147,1819 +158,1538 @@
             html { scroll-behavior: auto; }
         }
 
-        /* ===========================================
-           BASE STYLES
-           =========================================== */
-        body {
-            font-family: var(--font-body);
-            background: var(--bg);
-            color: var(--howlite);
-            font-weight: 400;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Film grain overlay */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.5;
-            mix-blend-mode: overlay;
-        }
-
-        /* Slide backgrounds */
-        .slide {
-            background: var(--bg);
-        }
-
-        /* Subtle grid pattern on all slides */
-        .slide::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(232,228,222,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(232,228,222,0.02) 1px, transparent 1px);
-            background-size: clamp(30px, 5vw, 60px) clamp(30px, 5vw, 60px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .slide-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ===========================================
-           TYPOGRAPHY
-           =========================================== */
-        h1, h2, .display {
-            font-family: var(--font-display);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
-
-        .label {
-            font-family: var(--font-mono);
-            font-size: var(--small-size);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--howlite-dim);
-        }
-
-        .mono {
-            font-family: var(--font-mono);
-        }
-
-        /* ===========================================
-           ANIMATIONS — Reveal on scroll
-           =========================================== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(clamp(15px, 3vh, 30px));
-            transition: opacity var(--duration) var(--ease-out-expo),
-                        transform var(--duration) var(--ease-out-expo);
-        }
-
-        .reveal-scale {
-            opacity: 0;
-            transform: scale(0.92);
-            transition: opacity var(--duration) var(--ease-out-expo),
-                        transform var(--duration) var(--ease-out-expo);
-        }
-
-        .reveal-blur {
-            opacity: 0;
-            filter: blur(8px);
-            transition: opacity 0.9s var(--ease-out-expo),
-                        filter 0.9s var(--ease-out-expo);
-        }
-
-        .slide.visible .reveal,
-        .slide.visible .reveal-scale,
-        .slide.visible .reveal-blur {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
-        }
-
-        /* Stagger children */
-        .stagger > *:nth-child(1) { transition-delay: 0.05s; }
-        .stagger > *:nth-child(2) { transition-delay: 0.12s; }
-        .stagger > *:nth-child(3) { transition-delay: 0.19s; }
-        .stagger > *:nth-child(4) { transition-delay: 0.26s; }
-        .stagger > *:nth-child(5) { transition-delay: 0.33s; }
-        .stagger > *:nth-child(6) { transition-delay: 0.40s; }
-        .stagger > *:nth-child(7) { transition-delay: 0.47s; }
-
-        /* ===========================================
-           COMPONENTS
-           =========================================== */
-
-        /* Pills / tags */
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: clamp(0.25rem, 0.5vw, 0.4rem);
-            padding: clamp(0.2rem, 0.4vw, 0.35rem) clamp(0.5rem, 1vw, 0.75rem);
-            border-radius: 100px;
-            font-family: var(--font-mono);
-            font-size: clamp(0.5rem, 0.8vw, 0.7rem);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            border: 1px solid var(--border-accent);
-            background: var(--surface);
-        }
-
-        /* Accent colors */
-        .c-crystal { color: var(--crystal); }
-        .c-signal { color: var(--signal); }
-        .c-mineral { color: var(--mineral); }
-        .c-danger { color: var(--danger); }
-        .c-purple { color: var(--purple); }
-
-        .border-crystal { border-color: rgba(0, 220, 130, 0.25) !important; }
-        .border-signal { border-color: rgba(59, 130, 246, 0.25) !important; }
-        .border-mineral { border-color: rgba(201, 169, 110, 0.25) !important; }
-        .border-danger { border-color: rgba(239, 68, 68, 0.25) !important; }
-        .border-purple { border-color: rgba(139, 92, 246, 0.25) !important; }
-
-        /* Horizontal rule */
-        .accent-line {
-            width: clamp(30px, 4vw, 50px);
-            height: 2px;
-            background: var(--crystal);
-            border: none;
-        }
-
-        /* Section number */
-        .section-num {
-            font-family: var(--font-mono);
-            font-size: clamp(0.5rem, 0.8vw, 0.7rem);
-            color: var(--howlite-dim);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        /* ===========================================
-           PROGRESS BAR
-           =========================================== */
+        /* --- Progress Bar --- */
         .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--crystal), var(--signal));
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: var(--brand);
             z-index: 1000;
-            transition: width 0.3s var(--ease-out-expo);
-            width: 0%;
+            transition: width 0.3s var(--ease);
         }
 
-        /* ===========================================
-           NAVIGATION DOTS
-           =========================================== */
+        /* --- Nav Dots --- */
         .nav-dots {
-            position: fixed;
-            right: clamp(12px, 2vw, 24px);
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: clamp(6px, 0.8vh, 10px);
-            z-index: 100;
+            position: fixed; right: clamp(10px, 1.5vw, 20px);
+            top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column;
+            gap: clamp(5px, 0.7vh, 8px); z-index: 100;
         }
-
         .nav-dot {
-            width: clamp(6px, 0.5vw, 8px);
-            height: clamp(6px, 0.5vw, 8px);
-            border-radius: 50%;
-            background: var(--howlite-faint);
-            border: none;
-            cursor: pointer;
+            width: clamp(7px, 0.6vw, 9px); height: clamp(7px, 0.6vw, 9px);
+            border-radius: 50%; border: 2px solid var(--text-light);
+            background: transparent; cursor: pointer; padding: 0;
             transition: all 0.3s ease;
-            padding: 0;
         }
-
-        .nav-dot:hover {
-            background: var(--howlite-dim);
-        }
-
         .nav-dot.active {
-            background: var(--crystal);
-            box-shadow: 0 0 8px var(--crystal-dim);
+            background: var(--brand); border-color: var(--brand);
             transform: scale(1.3);
         }
+        .nav-dot.dark-ctx { border-color: rgba(255,255,255,0.3); }
+        .nav-dot.dark-ctx.active { border-color: #34D399; background: #34D399; }
+
+        /* --- Slide Num --- */
+        .snum {
+            position: absolute;
+            bottom: clamp(0.5rem, 1vw, 1rem);
+            right: clamp(1rem, 2vw, 1.5rem);
+            font-family: var(--font-mono);
+            font-size: clamp(0.5rem, 0.6vw, 0.6rem);
+            color: var(--text-light);
+            letter-spacing: 0.15em;
+            z-index: 1;
+        }
+        .dark .snum { color: rgba(255,255,255,0.2); }
 
         /* ===========================================
-           SLIDE 1: HERO
+           S1: HERO — Asymmetric, left-aligned
            =========================================== */
-        .hero-slide {
-            background:
-                radial-gradient(ellipse at 25% 70%, rgba(0, 220, 130, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 75% 30%, rgba(59, 130, 246, 0.04) 0%, transparent 50%),
-                var(--bg);
+        #s1 .slide-inner {
+            max-width: min(90vw, 900px);
         }
 
-        .hero-slide .slide-content {
-            align-items: center;
-            text-align: center;
-            gap: clamp(1rem, 2.5vh, 2rem);
-        }
-
-        /* Crystal hexagon logo */
-        .crystal-mark {
-            position: relative;
-            width: clamp(60px, 10vw, 100px);
-            height: clamp(60px, 10vw, 100px);
-        }
-
-        .crystal-hex {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--crystal) 0%, var(--signal) 50%, var(--purple) 100%);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: crystal-pulse 4s ease-in-out infinite;
-        }
-
-        .crystal-hex span {
-            font-family: var(--font-display);
-            font-weight: 900;
-            font-size: clamp(1.5rem, 4vw, 2.8rem);
-            color: var(--bg);
-            letter-spacing: -0.05em;
-        }
-
-        @keyframes crystal-pulse {
-            0%, 100% { filter: brightness(1) drop-shadow(0 0 15px rgba(0, 220, 130, 0.2)); }
-            50% { filter: brightness(1.1) drop-shadow(0 0 25px rgba(0, 220, 130, 0.35)); }
+        .hero-tag {
+            background: var(--brand-light);
+            color: var(--brand-dark);
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            font-weight: 900;
-            letter-spacing: 0.15em;
-            background: linear-gradient(180deg, var(--howlite) 0%, rgba(232,228,222,0.7) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: clamp(3rem, 10vw, 7rem);
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
         }
 
-        .hero-subtitle {
-            font-family: var(--font-display);
+        .hero-sub {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-dim);
             font-weight: 400;
-            font-style: italic;
-            font-size: clamp(1rem, 2.5vw, 1.75rem);
-            color: var(--howlite-dim);
-            letter-spacing: 0.05em;
-        }
-
-        .hero-tagline {
-            font-size: var(--body-size);
-            color: var(--howlite-dim);
-            letter-spacing: 0.08em;
-        }
-
-        .hero-metrics {
-            display: flex;
-            gap: clamp(0.75rem, 2vw, 2rem);
-            margin-top: clamp(0.5rem, 1vh, 1rem);
-        }
-
-        .hero-metric {
-            text-align: center;
-        }
-
-        .hero-metric-value {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(0.9rem, 1.8vw, 1.4rem);
-            color: var(--crystal);
-        }
-
-        .hero-metric-label {
-            font-size: clamp(0.5rem, 0.7vw, 0.65rem);
-            color: var(--howlite-dim);
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        .hero-metric + .hero-metric {
-            border-left: 1px solid var(--border-accent);
-            padding-left: clamp(0.75rem, 2vw, 2rem);
-        }
-
-        /* ===========================================
-           SLIDE 2: THE FRACTURE
-           =========================================== */
-        .fracture-slide {
-            background:
-                radial-gradient(ellipse at 50% 50%, rgba(239, 68, 68, 0.04) 0%, transparent 60%),
-                var(--bg);
-        }
-
-        .fracture-slide .slide-content {
-            align-items: center;
-            text-align: center;
-            gap: clamp(0.75rem, 2vh, 1.5rem);
-        }
-
-        .fracture-number {
-            font-family: var(--font-display);
-            font-weight: 900;
-            font-size: clamp(4rem, 15vw, 12rem);
-            line-height: 0.9;
-            letter-spacing: -0.03em;
-            background: linear-gradient(180deg, var(--howlite) 30%, rgba(232,228,222,0.3) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-        }
-
-        .fracture-sub {
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: clamp(0.9rem, 2vw, 1.4rem);
-            color: var(--howlite-dim);
             max-width: 500px;
+            line-height: 1.4;
+            margin-bottom: clamp(1rem, 2vh, 1.5rem);
         }
 
-        .fracture-stats {
-            display: flex;
-            gap: clamp(1rem, 3vw, 3rem);
-            margin-top: clamp(0.5rem, 1.5vh, 1.5rem);
+        .hero-pills {
+            display: flex; gap: clamp(0.4rem, 1vw, 0.75rem);
+            flex-wrap: wrap;
         }
 
-        .fracture-stat {
-            text-align: center;
-        }
-
-        .fracture-stat-val {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1.5vw, 1.1rem);
-            color: var(--danger);
-        }
-
-        .fracture-stat-label {
-            font-size: clamp(0.5rem, 0.75vw, 0.65rem);
-            color: var(--howlite-dim);
-            max-width: 120px;
-            margin-top: 2px;
-        }
-
-        /* ===========================================
-           SLIDE 3: FAULT LINES
-           =========================================== */
-        .fault-slide .slide-content {
-            gap: clamp(1rem, 2.5vh, 2rem);
-        }
-
-        .fault-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: clamp(0.5rem, 1vw, 1rem);
-        }
-
-        @media (max-width: 700px) {
-            .fault-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .fault-card {
+        .hero-pill {
+            display: flex; align-items: center;
+            gap: clamp(0.25rem, 0.4vw, 0.35rem);
+            padding: clamp(0.3rem, 0.5vw, 0.4rem) clamp(0.6rem, 1vw, 0.8rem);
             background: var(--surface);
             border: 1px solid var(--border);
-            border-top: 2px solid var(--danger);
-            border-radius: clamp(6px, 0.8vw, 10px);
-            padding: clamp(0.6rem, 1.5vw, 1.25rem);
-            transition: border-color 0.3s ease;
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-weight: 500;
         }
 
-        .fault-card:hover {
-            border-color: var(--border-accent);
-            border-top-color: var(--danger);
+        .hero-pill .val {
+            color: var(--brand);
+            font-weight: 600;
         }
 
-        .fault-val {
+        /* Decorative H watermark */
+        #s1::after {
+            content: 'H';
+            position: absolute;
+            right: -5vw; top: 50%;
+            transform: translateY(-50%);
             font-family: var(--font-display);
-            font-weight: 900;
-            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-            color: var(--danger);
+            font-weight: 800;
+            font-size: clamp(20rem, 50vw, 45rem);
+            color: rgba(0,0,0,0.025);
+            pointer-events: none;
             line-height: 1;
         }
 
-        .fault-title {
-            font-family: var(--font-mono);
-            font-size: clamp(0.5rem, 0.75vw, 0.65rem);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--howlite-dim);
-            margin-top: clamp(0.3rem, 0.5vh, 0.5rem);
+        /* ===========================================
+           S2: IMPACT — $1 Trillion (dark)
+           =========================================== */
+        #s2 .slide-inner {
+            align-items: center;
+            text-align: center;
+            gap: clamp(0.5rem, 1.5vh, 1.25rem);
         }
 
-        .fault-desc {
-            font-size: clamp(0.6rem, 0.9vw, 0.8rem);
-            color: var(--howlite-dim);
-            margin-top: clamp(0.2rem, 0.4vh, 0.4rem);
+        .impact-num {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(5rem, 18vw, 14rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.35) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .impact-sub {
+            font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            color: #9CA3AF;
+            max-width: 450px;
+        }
+
+        .impact-stats {
+            display: flex;
+            gap: clamp(1.5rem, 4vw, 3.5rem);
+            margin-top: clamp(0.5rem, 1vh, 0.75rem);
+        }
+
+        .impact-stat-val {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+            color: #F87171;
+        }
+
+        .impact-stat-label {
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            color: #6B7280;
+            margin-top: 2px;
+        }
+
+        /* ===========================================
+           S3: FAULT LINES — List format, not cards
+           =========================================== */
+        #s3 .slide-inner {
+            gap: clamp(1rem, 2.5vh, 2rem);
+            max-width: min(90vw, 850px);
+        }
+
+        .fault-list {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.3rem, 0.6vh, 0.5rem);
+        }
+
+        .fault-row {
+            display: flex;
+            align-items: baseline;
+            gap: clamp(1rem, 2.5vw, 2rem);
+            padding: clamp(0.6rem, 1.2vh, 0.9rem) 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .fault-row:last-child { border-bottom: none; }
+
+        .fault-num {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: var(--danger);
+            min-width: clamp(80px, 12vw, 130px);
+            text-align: right;
+            line-height: 1;
+        }
+
+        .fault-body h3 {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+            margin-bottom: 2px;
+        }
+
+        .fault-body p {
+            font-size: var(--small-size);
+            color: var(--text-dim);
             line-height: 1.4;
         }
 
         /* ===========================================
-           SLIDE 4: THE CRYSTAL — Solution
+           S4: THE FLOW — Star comparison slide (dark)
+           Animated forking path diagram
            =========================================== */
-        .crystal-slide {
+        .flow-slide {
             background:
-                radial-gradient(ellipse at 50% 80%, rgba(0, 220, 130, 0.04) 0%, transparent 50%),
-                var(--bg);
+                radial-gradient(ellipse at 30% 40%, rgba(5, 150, 105, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(220, 38, 38, 0.06) 0%, transparent 50%),
+                var(--bg-dark);
         }
 
-        .crystal-slide .slide-content {
+        #s4 .slide-inner {
+            gap: clamp(0.75rem, 2vh, 1.5rem);
+            align-items: center;
+        }
+
+        .flow-diagram {
+            width: min(90vw, 900px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.5vh, 1.25rem);
+        }
+
+        .flow-path-section {
+            position: relative;
+        }
+
+        .flow-path-label {
+            font-family: var(--font-mono);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.5vw, 0.4rem);
+        }
+
+        .flow-path-label .badge {
+            padding: clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.3rem, 0.5vw, 0.4rem);
+            border-radius: 3px;
+            font-size: clamp(0.45rem, 0.6vw, 0.5rem);
+        }
+
+        .flow-nodes {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .flow-node {
+            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.8rem);
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+        }
+
+        .flow-connector {
+            width: clamp(16px, 3vw, 32px);
+            height: 2px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .flow-connector::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            width: 0; height: 100%;
+            transition: width 0.3s var(--ease);
+        }
+
+        /* Howlite path styles */
+        .howlite-section .flow-node {
+            background: rgba(5, 150, 105, 0.15);
+            color: #34D399;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+        .howlite-section .flow-connector::after { background: rgba(52, 211, 153, 0.4); }
+        .howlite-section .flow-path-label { color: #34D399; }
+        .howlite-section .badge { background: rgba(52, 211, 153, 0.15); color: #34D399; }
+
+        /* Legacy path styles */
+        .legacy-section .flow-node {
+            background: rgba(220, 38, 38, 0.12);
+            color: #F87171;
+            border: 1px solid rgba(248, 113, 113, 0.25);
+        }
+        .legacy-section .flow-connector::after { background: rgba(248, 113, 113, 0.3); }
+        .legacy-section .flow-path-label { color: #F87171; }
+        .legacy-section .badge { background: rgba(248, 113, 113, 0.12); color: #F87171; }
+
+        /* Animate when visible */
+        .slide.visible .flow-node {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .slide.visible .flow-connector::after {
+            width: 100%;
+        }
+
+        /* Stagger the howlite path (fast) */
+        .howlite-section .flow-node:nth-child(1) { transition-delay: 0.2s; }
+        .howlite-section .flow-connector:nth-child(2)::after { transition-delay: 0.35s; }
+        .howlite-section .flow-node:nth-child(3) { transition-delay: 0.5s; }
+        .howlite-section .flow-connector:nth-child(4)::after { transition-delay: 0.65s; }
+        .howlite-section .flow-node:nth-child(5) { transition-delay: 0.8s; }
+        .howlite-section .flow-connector:nth-child(6)::after { transition-delay: 0.95s; }
+        .howlite-section .flow-node:nth-child(7) { transition-delay: 1.1s; }
+
+        /* Stagger the legacy path (slower) */
+        .legacy-section .flow-node:nth-child(1) { transition-delay: 0.3s; }
+        .legacy-section .flow-connector:nth-child(2)::after { transition-delay: 0.5s; }
+        .legacy-section .flow-node:nth-child(3) { transition-delay: 0.7s; }
+        .legacy-section .flow-connector:nth-child(4)::after { transition-delay: 0.9s; }
+        .legacy-section .flow-node:nth-child(5) { transition-delay: 1.1s; }
+        .legacy-section .flow-connector:nth-child(6)::after { transition-delay: 1.3s; }
+        .legacy-section .flow-node:nth-child(7) { transition-delay: 1.5s; }
+        .legacy-section .flow-connector:nth-child(8)::after { transition-delay: 1.7s; }
+        .legacy-section .flow-node:nth-child(9) { transition-delay: 1.9s; }
+        .legacy-section .flow-connector:nth-child(10)::after { transition-delay: 2.1s; }
+        .legacy-section .flow-node:nth-child(11) { transition-delay: 2.3s; }
+        .legacy-section .flow-connector:nth-child(12)::after { transition-delay: 2.5s; }
+        .legacy-section .flow-node:nth-child(13) { transition-delay: 2.7s; }
+
+        .flow-outcomes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.5rem, 1.5vw, 1.25rem);
+            margin-top: clamp(0.25rem, 0.5vh, 0.4rem);
+            opacity: 0;
+            transition: opacity 0.6s var(--ease);
+            transition-delay: 1.5s;
+        }
+
+        .slide.visible .flow-outcomes { opacity: 1; }
+
+        .flow-outcome {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            padding: clamp(0.4rem, 0.8vw, 0.6rem);
+            border-radius: 8px;
+        }
+
+        .flow-outcome.good {
+            background: rgba(52, 211, 153, 0.06);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+        }
+
+        .flow-outcome.bad {
+            background: rgba(248, 113, 113, 0.06);
+            border: 1px solid rgba(248, 113, 113, 0.12);
+        }
+
+        .fo-item-val {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: clamp(0.65rem, 0.95vw, 0.8rem);
+        }
+
+        .fo-item-label {
+            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            opacity: 0.5;
+        }
+
+        .good .fo-item-val { color: #34D399; }
+        .bad .fo-item-val { color: #F87171; }
+
+        /* ===========================================
+           S5: SOLUTION — 3 horizontal pillars
+           =========================================== */
+        #s5 .slide-inner {
             gap: clamp(1rem, 2.5vh, 2rem);
         }
 
-        .pillar-grid {
+        .solution-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: clamp(0.5rem, 1.5vw, 1.25rem);
-        }
-
-        @media (max-width: 700px) {
-            .pillar-grid { grid-template-columns: 1fr; }
-        }
-
-        .pillar {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
-            padding: clamp(0.75rem, 2vw, 1.5rem);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s ease;
-        }
-
-        .pillar:hover {
-            border-color: var(--border-accent);
-        }
-
-        .pillar-num {
-            font-family: var(--font-display);
-            font-weight: 900;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            position: absolute;
-            top: clamp(0.3rem, 0.8vw, 0.6rem);
-            right: clamp(0.5rem, 1vw, 0.8rem);
-            opacity: 0.06;
-            line-height: 1;
-        }
-
-        .pillar-icon {
-            font-size: clamp(1rem, 1.8vw, 1.4rem);
-            margin-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
-        }
-
-        .pillar-title {
-            font-family: var(--font-mono);
-            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);
-        }
-
-        .pillar-text {
-            font-size: clamp(0.65rem, 1vw, 0.85rem);
-            color: var(--howlite-dim);
-            line-height: 1.5;
-        }
-
-        .pillar-highlight {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
-            margin-top: clamp(0.3rem, 0.6vh, 0.5rem);
-            padding-top: clamp(0.3rem, 0.6vh, 0.5rem);
-            border-top: 1px solid var(--border);
-        }
-
-        /* ===========================================
-           SLIDE 5: THE FLOW — Comparison
-           =========================================== */
-        .flow-slide .slide-content {
-            gap: clamp(0.75rem, 2vh, 1.5rem);
-        }
-
-        .flow-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: clamp(0.75rem, 1.5vw, 1.25rem);
         }
 
         @media (max-width: 700px) {
-            .flow-comparison { grid-template-columns: 1fr; }
+            .solution-grid { grid-template-columns: 1fr; }
         }
 
-        .flow-path {
-            background: var(--surface);
+        .sol-card {
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border-radius: clamp(10px, 1.2vw, 14px);
             border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
-            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            background: var(--surface);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .flow-path.howlite-path {
-            border-top: 2px solid var(--crystal);
+        .sol-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
         }
 
-        .flow-path.legacy-path {
-            border-top: 2px solid var(--danger);
+        .sol-num {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            opacity: 0.07;
+            line-height: 1;
+            margin-bottom: clamp(-0.5rem, -0.5vh, -0.3rem);
         }
 
-        .flow-label {
+        .sol-icon {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            margin-bottom: clamp(0.3rem, 0.5vh, 0.4rem);
+        }
+
+        .sol-title {
             font-family: var(--font-mono);
-            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            font-weight: 600;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: clamp(0.4rem, 0.8vh, 0.6rem);
+            margin-bottom: clamp(0.25rem, 0.4vh, 0.35rem);
         }
 
-        .flow-steps {
-            display: flex;
-            align-items: center;
-            gap: clamp(0.2rem, 0.5vw, 0.4rem);
-            flex-wrap: wrap;
-            margin-bottom: clamp(0.5rem, 1vh, 0.75rem);
+        .sol-text {
+            font-size: var(--small-size);
+            color: var(--text-dim);
+            line-height: 1.5;
+            margin-bottom: clamp(0.3rem, 0.5vh, 0.4rem);
         }
 
-        .flow-step {
-            padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.3rem, 0.6vw, 0.5rem);
-            border-radius: 4px;
+        .sol-highlight {
             font-family: var(--font-mono);
-            font-size: clamp(0.45rem, 0.7vw, 0.6rem);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .howlite-path .flow-step {
-            background: var(--crystal-dim);
-            color: var(--crystal);
-            border: 1px solid rgba(0, 220, 130, 0.2);
-        }
-
-        .legacy-path .flow-step {
-            background: var(--danger-dim);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.15);
-        }
-
-        .flow-arrow {
-            color: var(--howlite-dim);
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-        }
-
-        .flow-metrics {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: clamp(0.3rem, 0.6vw, 0.5rem);
-        }
-
-        .flow-metric-val {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(0.6rem, 0.9vw, 0.75rem);
-        }
-
-        .flow-metric-label {
-            color: var(--howlite-dim);
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            font-weight: 600;
+            font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            padding-top: clamp(0.3rem, 0.5vh, 0.4rem);
+            border-top: 1px solid var(--border);
         }
 
         /* ===========================================
-           SLIDE 6: INTELLIGENCE — Terminal
+           S6: INTELLIGENCE — Terminal (light bg)
            =========================================== */
-        .intel-slide .slide-content {
+        #s6 .slide-inner {
             gap: clamp(0.75rem, 2vh, 1.5rem);
+            align-items: center;
         }
 
         .terminal {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
+            width: min(90vw, 680px);
+            background: var(--bg-dark);
+            border-radius: clamp(10px, 1.2vw, 14px);
             overflow: hidden;
-            max-width: min(90vw, 720px);
-            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
         }
 
         .terminal-bar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: clamp(0.3rem, 0.6vw, 0.5rem) clamp(0.5rem, 1vw, 0.75rem);
-            background: var(--elevated);
-            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; gap: 6px;
+            padding: clamp(0.35rem, 0.6vw, 0.5rem) clamp(0.6rem, 1vw, 0.8rem);
+            background: rgba(255,255,255,0.05);
         }
 
         .terminal-dot {
-            width: clamp(6px, 0.6vw, 8px);
-            height: clamp(6px, 0.6vw, 8px);
+            width: clamp(7px, 0.7vw, 9px);
+            height: clamp(7px, 0.7vw, 9px);
             border-radius: 50%;
         }
 
         .terminal-title {
             font-family: var(--font-mono);
             font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-            color: var(--howlite-dim);
+            color: rgba(255,255,255,0.4);
             margin-left: 6px;
         }
 
         .terminal-body {
-            padding: clamp(0.5rem, 1.2vw, 1rem);
+            padding: clamp(0.6rem, 1.2vw, 1rem);
             font-family: var(--font-mono);
-            font-size: clamp(0.5rem, 0.8vw, 0.7rem);
-            line-height: 1.8;
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            line-height: 1.9;
+            color: #D1D5DB;
         }
 
-        .terminal-line {
+        .t-line {
             display: flex;
             gap: clamp(0.5rem, 1vw, 0.75rem);
         }
 
-        .terminal-key {
-            color: var(--howlite-dim);
-            min-width: clamp(80px, 12vw, 130px);
+        .t-key {
+            color: #6B7280;
+            min-width: clamp(80px, 11vw, 120px);
             text-align: right;
         }
 
-        .terminal-val.verified { color: var(--crystal); }
-        .terminal-val.data { color: var(--signal); }
-        .terminal-val.fee { color: var(--mineral); }
+        .t-val { color: #E5E7EB; }
+        .t-val.green { color: #34D399; }
+        .t-val.blue { color: #60A5FA; }
+        .t-val.amber { color: #FBBF24; }
 
-        .terminal-divider {
+        .t-divider {
             border: none;
-            border-top: 1px solid var(--border);
-            margin: clamp(0.3rem, 0.5vh, 0.4rem) 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin: clamp(0.2rem, 0.4vh, 0.3rem) 0;
         }
 
         /* ===========================================
-           SLIDE 7: THE YIELD — Value metrics
+           S7: THE YIELD — Featured metric + 3 supporting
            =========================================== */
-        .yield-slide .slide-content {
+        #s7 .slide-inner {
             gap: clamp(1rem, 2.5vh, 2rem);
         }
 
-        .yield-grid {
+        .yield-layout {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: clamp(0.5rem, 1vw, 1rem);
+            grid-template-columns: 1.2fr 1fr;
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
         }
 
         @media (max-width: 700px) {
-            .yield-grid { grid-template-columns: repeat(2, 1fr); }
+            .yield-layout { grid-template-columns: 1fr; }
         }
 
-        .yield-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
-            padding: clamp(0.75rem, 1.5vw, 1.25rem);
-            text-align: center;
-            transition: border-color 0.3s ease;
-        }
-
-        .yield-card:hover { border-color: var(--border-accent); }
-
-        .yield-val {
-            font-family: var(--font-display);
-            font-weight: 900;
-            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-            line-height: 1;
-        }
-
-        .yield-label {
-            font-family: var(--font-mono);
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--howlite-dim);
-            margin-top: clamp(0.2rem, 0.4vh, 0.35rem);
-        }
-
-        .yield-desc {
-            font-size: clamp(0.55rem, 0.85vw, 0.7rem);
-            color: var(--howlite-dim);
-            margin-top: clamp(0.2rem, 0.4vh, 0.35rem);
-        }
-
-        /* ===========================================
-           SLIDE 8: THE LEDGER — Hedera
-           =========================================== */
-        .ledger-slide {
-            background:
-                radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 50%),
-                var(--bg);
-        }
-
-        .ledger-slide .slide-content {
-            gap: clamp(1rem, 2.5vh, 2rem);
-        }
-
-        .ledger-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: clamp(0.5rem, 1vw, 1rem);
-        }
-
-        @media (max-width: 700px) {
-            .ledger-stats { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .ledger-stat {
-            text-align: center;
-            padding: clamp(0.5rem, 1vw, 1rem);
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: clamp(6px, 0.8vw, 10px);
-        }
-
-        .ledger-stat-val {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            color: var(--signal);
-        }
-
-        .ledger-stat-label {
-            font-size: clamp(0.5rem, 0.75vw, 0.65rem);
-            color: var(--howlite-dim);
-            margin-top: 2px;
-        }
-
-        .council-list {
+        .yield-featured {
+            background: var(--brand);
+            color: white;
+            border-radius: clamp(10px, 1.2vw, 14px);
+            padding: clamp(1rem, 2.5vw, 2rem);
             display: flex;
-            flex-wrap: wrap;
-            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            flex-direction: column;
             justify-content: center;
         }
 
-        .council-item {
+        .yield-featured-val {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            line-height: 0.9;
+        }
+
+        .yield-featured-label {
             font-family: var(--font-mono);
-            font-size: clamp(0.5rem, 0.75vw, 0.65rem);
-            color: var(--howlite-dim);
-            padding: clamp(0.15rem, 0.3vw, 0.25rem) clamp(0.4rem, 0.8vw, 0.6rem);
-            border: 1px solid var(--border);
-            border-radius: 4px;
+            font-size: clamp(0.6rem, 0.85vw, 0.75rem);
+            letter-spacing: 0.12em;
             text-transform: uppercase;
+            opacity: 0.8;
+            margin-top: clamp(0.3rem, 0.5vh, 0.4rem);
+        }
+
+        .yield-featured-desc {
+            font-size: var(--small-size);
+            opacity: 0.7;
+            margin-top: clamp(0.15rem, 0.3vh, 0.25rem);
+        }
+
+        .yield-supporting {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+        }
+
+        .yield-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: clamp(8px, 1vw, 12px);
+            padding: clamp(0.6rem, 1.2vw, 1rem);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+        }
+
+        .yield-item-val {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            min-width: clamp(50px, 7vw, 70px);
+        }
+
+        .yield-item-text h4 {
+            font-family: var(--font-mono);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-weight: 600;
             letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .yield-item-text p {
+            font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+            color: var(--text-dim);
         }
 
         /* ===========================================
-           SLIDE 9: MARKET — TAM
+           S8: LEDGER — Hedera
            =========================================== */
-        .market-slide .slide-content {
+        #s8 .slide-inner {
+            gap: clamp(1rem, 2.5vh, 2rem);
             align-items: center;
             text-align: center;
-            gap: clamp(0.75rem, 2vh, 1.5rem);
         }
 
-        .market-number {
-            font-family: var(--font-display);
-            font-weight: 900;
-            font-size: clamp(4rem, 14vw, 10rem);
-            line-height: 0.9;
-            letter-spacing: -0.03em;
-            color: var(--crystal);
-            text-shadow: 0 0 60px var(--crystal-dim);
+        .ledger-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 1vw, 0.75rem);
+            width: min(90vw, 750px);
         }
 
-        .market-context {
-            display: flex;
-            gap: clamp(1rem, 3vw, 3rem);
-            margin-top: clamp(0.25rem, 0.5vh, 0.5rem);
+        @media (max-width: 640px) {
+            .ledger-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        .market-ctx-val {
+        .ledger-cell {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-dark);
+            border-radius: 8px;
+            padding: clamp(0.5rem, 1vw, 0.75rem);
+        }
+
+        .ledger-val {
             font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1.4vw, 1.1rem);
+            font-weight: 600;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: #60A5FA;
         }
 
-        .market-ctx-label {
+        .ledger-label {
             font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-            color: var(--howlite-dim);
+            color: rgba(255,255,255,0.4);
+            margin-top: 2px;
+        }
+
+        .council {
+            display: flex; flex-wrap: wrap;
+            gap: clamp(0.25rem, 0.5vw, 0.4rem);
+            justify-content: center;
+            max-width: min(90vw, 600px);
+        }
+
+        .council span {
+            font-family: var(--font-mono);
+            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            padding: clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.35rem, 0.6vw, 0.5rem);
+            border: 1px solid var(--border-dark);
+            border-radius: 4px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ===========================================
+           S9: MARKET — $200B+ impact (dark)
+           =========================================== */
+        .market-num {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(5rem, 16vw, 12rem);
+            line-height: 0.85;
+            color: #34D399;
+            text-shadow: 0 0 80px rgba(52, 211, 153, 0.2);
+        }
+
+        .market-stats {
+            display: flex;
+            gap: clamp(1.5rem, 4vw, 3.5rem);
+            margin-top: clamp(0.5rem, 1vh, 0.75rem);
+        }
+
+        .ms-val {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+        }
+
+        .ms-label {
+            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
+            color: #6B7280;
             margin-top: 2px;
         }
 
         /* ===========================================
-           SLIDE 10: MOMENTUM — Regulatory
+           S10: MOMENTUM — Regulatory (light)
            =========================================== */
-        .momentum-slide .slide-content {
+        #s10 .slide-inner {
             gap: clamp(1rem, 2.5vh, 2rem);
         }
 
-        .reg-grid {
+        .reg-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: clamp(0.5rem, 1.2vw, 1rem);
         }
 
         @media (max-width: 700px) {
-            .reg-grid { grid-template-columns: 1fr; }
+            .reg-cards { grid-template-columns: 1fr; }
         }
 
         .reg-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
+            border-radius: clamp(10px, 1.2vw, 14px);
             padding: clamp(0.75rem, 1.5vw, 1.25rem);
-            transition: border-color 0.3s ease;
+            border-left: 3px solid transparent;
+            transition: transform 0.3s ease;
         }
 
-        .reg-card:hover { border-color: var(--border-accent); }
+        .reg-card:hover { transform: translateY(-2px); }
+        .reg-card.rc-green { border-left-color: var(--brand); }
+        .reg-card.rc-blue { border-left-color: var(--blue); }
+        .reg-card.rc-purple { border-left-color: var(--purple); }
 
-        .reg-status {
+        .reg-badge {
             display: inline-block;
             font-family: var(--font-mono);
-            font-size: clamp(0.45rem, 0.65vw, 0.55rem);
+            font-size: clamp(0.45rem, 0.6vw, 0.52rem);
+            font-weight: 600;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            padding: clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.3rem, 0.6vw, 0.5rem);
-            border-radius: 4px;
-            margin-bottom: clamp(0.3rem, 0.6vh, 0.5rem);
+            padding: clamp(0.1rem, 0.2vw, 0.15rem) clamp(0.3rem, 0.5vw, 0.4rem);
+            border-radius: 3px;
+            margin-bottom: clamp(0.25rem, 0.4vh, 0.35rem);
         }
 
-        .reg-title {
+        .rb-green { background: var(--brand-light); color: var(--brand-dark); }
+        .rb-blue { background: var(--blue-light); color: var(--blue); }
+        .rb-purple { background: var(--purple-light); color: var(--purple); }
+
+        .reg-card h3 {
             font-family: var(--font-display);
-            font-weight: 700;
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            margin-bottom: clamp(0.2rem, 0.4vh, 0.35rem);
+            font-weight: 800;
+            font-size: clamp(0.9rem, 1.4vw, 1.15rem);
+            margin-bottom: clamp(0.15rem, 0.3vh, 0.25rem);
         }
 
-        .reg-desc {
-            font-size: clamp(0.6rem, 0.9vw, 0.78rem);
-            color: var(--howlite-dim);
+        .reg-card p {
+            font-size: clamp(0.6rem, 0.9vw, 0.76rem);
+            color: var(--text-dim);
             line-height: 1.5;
         }
 
         /* ===========================================
-           SLIDE 11: BENEFITS
+           S11: BENEFITS — Split columns
            =========================================== */
-        .benefits-slide .slide-content {
+        #s11 .slide-inner {
             gap: clamp(0.75rem, 2vh, 1.5rem);
         }
 
-        .benefits-grid {
+        .benefits-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: clamp(0.5rem, 1.2vw, 1rem);
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
         }
 
         @media (max-width: 700px) {
-            .benefits-grid { grid-template-columns: 1fr; }
+            .benefits-split { grid-template-columns: 1fr; }
         }
 
-        .benefits-col {
+        .ben-col {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
+            border-radius: clamp(10px, 1.2vw, 14px);
             padding: clamp(0.75rem, 1.5vw, 1.25rem);
         }
 
-        .benefits-col-title {
+        .ben-header {
             font-family: var(--font-mono);
-            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            font-size: clamp(0.55rem, 0.75vw, 0.65rem);
+            font-weight: 600;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: clamp(0.4rem, 0.8vh, 0.6rem);
-            padding-bottom: clamp(0.3rem, 0.5vh, 0.4rem);
+            padding-bottom: clamp(0.35rem, 0.6vh, 0.5rem);
+            margin-bottom: clamp(0.35rem, 0.6vh, 0.5rem);
             border-bottom: 1px solid var(--border);
+            display: flex; align-items: center;
+            gap: clamp(0.25rem, 0.4vw, 0.35rem);
         }
 
-        .benefit-item {
-            display: flex;
-            align-items: center;
-            gap: clamp(0.3rem, 0.6vw, 0.5rem);
-            padding: clamp(0.2rem, 0.4vh, 0.35rem) 0;
-            font-size: clamp(0.6rem, 0.95vw, 0.8rem);
-            color: var(--howlite-dim);
+        .ben-item {
+            display: flex; align-items: center;
+            gap: clamp(0.35rem, 0.6vw, 0.5rem);
+            padding: clamp(0.25rem, 0.4vh, 0.35rem) 0;
+            font-size: clamp(0.65rem, 0.95vw, 0.8rem);
+            color: var(--text-dim);
         }
 
-        .benefit-item i {
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-            width: clamp(12px, 1.5vw, 16px);
+        .ben-item i {
+            font-size: clamp(0.55rem, 0.7vw, 0.62rem);
+            width: clamp(14px, 1.5vw, 18px);
             text-align: center;
         }
 
         /* ===========================================
-           SLIDE 12: TEAM
+           S12: TEAM — Editorial layout
            =========================================== */
-        .team-slide .slide-content {
+        #s12 .slide-inner {
             gap: clamp(0.75rem, 2vh, 1.5rem);
         }
 
-        .team-grid {
+        .team-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: clamp(0.5rem, 1vw, 1rem);
+            gap: clamp(0.5rem, 1.2vw, 1rem);
         }
 
         @media (max-width: 700px) {
-            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .team-row { grid-template-columns: repeat(2, 1fr); }
         }
 
-        .team-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
-            padding: clamp(0.5rem, 1.2vw, 1rem);
+        .team-member {
             text-align: center;
-            transition: border-color 0.3s ease;
+            padding: clamp(0.5rem, 1vw, 0.75rem);
+            border-radius: 10px;
+            transition: background 0.3s ease;
         }
 
-        .team-card:hover { border-color: var(--border-accent); }
+        .team-member:hover { background: var(--surface); }
 
-        .team-photo {
-            width: clamp(40px, 6vw, 64px);
-            height: clamp(40px, 6vw, 64px);
+        .team-img {
+            width: clamp(48px, 7vw, 72px);
+            height: clamp(48px, 7vw, 72px);
             border-radius: 50%;
             object-fit: cover;
             margin: 0 auto clamp(0.3rem, 0.5vh, 0.5rem);
             border: 2px solid var(--border);
         }
 
+        .team-img-placeholder {
+            width: clamp(48px, 7vw, 72px);
+            height: clamp(48px, 7vw, 72px);
+            border-radius: 50%;
+            margin: 0 auto clamp(0.3rem, 0.5vh, 0.5rem);
+            border: 2px solid var(--border);
+            background: var(--bg);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            color: var(--text-dim);
+        }
+
         .team-name {
             font-family: var(--font-display);
-            font-weight: 700;
-            font-size: clamp(0.75rem, 1.2vw, 1rem);
+            font-weight: 800;
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
         }
 
         .team-role {
             font-family: var(--font-mono);
-            font-size: clamp(0.45rem, 0.65vw, 0.55rem);
+            font-size: clamp(0.5rem, 0.65vw, 0.55rem);
+            font-weight: 500;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            margin-top: 2px;
+            margin-top: 1px;
         }
 
         .team-bio {
-            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
-            color: var(--howlite-dim);
-            margin-top: clamp(0.2rem, 0.4vh, 0.35rem);
+            font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+            color: var(--text-dim);
+            margin-top: clamp(0.15rem, 0.3vh, 0.25rem);
             line-height: 1.4;
         }
 
-        .team-badge {
-            display: inline-flex;
-            align-items: center;
+        .visa-badge {
+            display: inline-flex; align-items: center;
             gap: clamp(0.25rem, 0.5vw, 0.4rem);
-            margin-top: clamp(0.5rem, 1vh, 0.75rem);
-            padding: clamp(0.2rem, 0.4vw, 0.3rem) clamp(0.5rem, 1vw, 0.75rem);
-            background: var(--mineral-dim);
-            border: 1px solid rgba(201, 169, 110, 0.2);
+            padding: clamp(0.25rem, 0.4vw, 0.35rem) clamp(0.6rem, 1vw, 0.8rem);
+            background: var(--amber-light);
+            border: 1px solid rgba(217, 119, 6, 0.2);
             border-radius: 6px;
             font-family: var(--font-mono);
             font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-            color: var(--mineral);
+            font-weight: 600;
+            color: var(--amber);
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
         /* ===========================================
-           SLIDE 13: PARTNERSHIPS
+           S13: PARTNERS
            =========================================== */
-        .network-slide .slide-content {
+        #s13 .slide-inner {
             gap: clamp(1rem, 2.5vh, 2rem);
         }
 
         .partner-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: clamp(0.5rem, 1vw, 1rem);
+            gap: clamp(0.5rem, 1vw, 0.75rem);
         }
 
         @media (max-width: 500px) {
             .partner-grid { grid-template-columns: 1fr; }
         }
 
-        .partner-card {
+        .p-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: clamp(8px, 1vw, 12px);
-            padding: clamp(0.6rem, 1.5vw, 1.25rem);
-            transition: border-color 0.3s ease;
+            border-radius: clamp(10px, 1.2vw, 14px);
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .partner-card:hover { border-color: var(--border-accent); }
-
-        .partner-icon {
-            font-size: clamp(1rem, 1.5vw, 1.25rem);
-            margin-bottom: clamp(0.2rem, 0.4vh, 0.35rem);
-        }
-
-        .partner-title {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1.3vw, 1.05rem);
-        }
-
-        .partner-details {
-            margin-top: clamp(0.2rem, 0.4vh, 0.35rem);
-            font-size: clamp(0.55rem, 0.85vw, 0.72rem);
-            color: var(--howlite-dim);
-            line-height: 1.5;
-        }
-
-        /* ===========================================
-           SLIDE 14: CTA
-           =========================================== */
-        .cta-slide {
-            background:
-                radial-gradient(ellipse at 50% 60%, rgba(0, 220, 130, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 30% 30%, rgba(59, 130, 246, 0.04) 0%, transparent 40%),
-                var(--bg);
-        }
-
-        .cta-slide .slide-content {
-            align-items: center;
-            text-align: center;
-            gap: clamp(0.75rem, 2vh, 1.5rem);
-        }
-
-        .cta-headline {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: clamp(2rem, 6vw, 4.5rem);
-            line-height: 1.15;
-            font-style: italic;
-        }
-
-        .cta-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: clamp(0.4rem, 0.8vw, 0.6rem);
-            padding: clamp(0.5rem, 1vw, 0.75rem) clamp(1.25rem, 2.5vw, 2rem);
-            background: var(--crystal);
-            color: var(--bg);
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(0.6rem, 0.9vw, 0.8rem);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            text-decoration: none;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .cta-btn:hover {
-            background: #00f590;
+        .p-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--crystal-dim);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
         }
 
-        .cta-domain {
-            font-family: var(--font-mono);
-            font-size: clamp(0.5rem, 0.7vw, 0.6rem);
-            color: var(--howlite-dim);
-            letter-spacing: 0.15em;
+        .p-card-icon {
+            font-size: clamp(1rem, 1.5vw, 1.3rem);
+            margin-bottom: clamp(0.2rem, 0.4vh, 0.3rem);
         }
 
-        .cta-metrics {
-            display: flex;
-            gap: clamp(1.5rem, 3vw, 3rem);
-            margin-top: clamp(0.25rem, 0.5vh, 0.5rem);
+        .p-card h3 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(0.85rem, 1.3vw, 1.05rem);
         }
 
-        .cta-metric-val {
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: clamp(0.75rem, 1.2vw, 1rem);
-            color: var(--crystal);
-        }
-
-        .cta-metric-label {
-            font-size: clamp(0.45rem, 0.65vw, 0.55rem);
-            color: var(--howlite-dim);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-top: 2px;
-        }
-
-        /* ===========================================
-           SHARED SLIDE HEADER
-           =========================================== */
-        .slide-header {
-            margin-bottom: clamp(0.3rem, 0.5vh, 0.5rem);
-        }
-
-        .slide-title {
-            font-size: var(--title-size);
-        }
-
-        .slide-sub {
-            font-size: var(--body-size);
-            color: var(--howlite-dim);
-            max-width: min(90vw, 600px);
+        .p-card p {
+            font-size: clamp(0.6rem, 0.85vw, 0.72rem);
+            color: var(--text-dim);
             line-height: 1.5;
             margin-top: clamp(0.15rem, 0.3vh, 0.25rem);
         }
 
         /* ===========================================
-           SLIDE NUMBER WATERMARK
+           S14: CTA
            =========================================== */
-        .slide-watermark {
-            position: absolute;
-            bottom: clamp(0.5rem, 1.5vw, 1.25rem);
-            right: clamp(0.75rem, 2vw, 1.5rem);
+        #s14 .slide-inner {
+            align-items: center;
+            text-align: center;
+            gap: clamp(0.75rem, 2vh, 1.5rem);
+        }
+
+        .cta-title {
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            line-height: 1.05;
+        }
+
+        .cta-btn {
+            display: inline-flex; align-items: center;
+            gap: clamp(0.4rem, 0.6vw, 0.5rem);
+            padding: clamp(0.6rem, 1vw, 0.8rem) clamp(1.5rem, 2.5vw, 2rem);
+            background: var(--brand);
+            color: white;
             font-family: var(--font-mono);
-            font-size: clamp(0.45rem, 0.6vw, 0.55rem);
-            color: rgba(232, 228, 222, 0.12);
+            font-weight: 600;
+            font-size: clamp(0.65rem, 0.9vw, 0.8rem);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #047857;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.25);
+        }
+
+        .cta-pills {
+            display: flex;
+            gap: clamp(1.5rem, 3vw, 3rem);
+        }
+
+        .cta-pill-val {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            color: var(--brand);
+        }
+
+        .cta-pill-label {
+            font-size: clamp(0.5rem, 0.65vw, 0.55rem);
+            color: var(--text-dim);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 1px;
+        }
+
+        .cta-domain {
+            font-family: var(--font-mono);
+            font-size: clamp(0.55rem, 0.7vw, 0.62rem);
+            color: var(--text-light);
             letter-spacing: 0.15em;
-            z-index: 1;
         }
     </style>
 </head>
 <body>
 
-    <!-- Progress bar -->
     <div class="progress-bar" id="progressBar"></div>
-
-    <!-- Navigation dots -->
     <nav class="nav-dots" id="navDots"></nav>
 
-    <!-- ============================================
-         SLIDE 1: HERO
-         ============================================ -->
-    <section class="slide hero-slide" id="s1">
-        <div class="slide-content stagger">
-            <div class="crystal-mark reveal">
-                <div class="crystal-hex"><span>H</span></div>
-            </div>
-            <h1 class="hero-title reveal">HOWLITE</h1>
-            <p class="hero-subtitle reveal">The Unaffiliated Payment Network</p>
-            <hr class="accent-line reveal">
-            <p class="hero-tagline reveal">Transparent fees · Rich data · Real-time settlement</p>
-            <div class="hero-metrics reveal">
-                <div class="hero-metric">
-                    <div class="hero-metric-value">T+0</div>
-                    <div class="hero-metric-label">Settlement</div>
-                </div>
-                <div class="hero-metric">
-                    <div class="hero-metric-value">L3+FHIR</div>
-                    <div class="hero-metric-label">Data Depth</div>
-                </div>
-                <div class="hero-metric">
-                    <div class="hero-metric-value">USDC</div>
-                    <div class="hero-metric-label">Native Currency</div>
-                </div>
-            </div>
-        </div>
-        <div class="slide-watermark">01 / 14</div>
-    </section>
-
-    <!-- ============================================
-         SLIDE 2: THE FRACTURE
-         ============================================ -->
-    <section class="slide fracture-slide" id="s2">
-        <div class="slide-content stagger">
-            <p class="section-num reveal">THE FRACTURE</p>
-            <div class="fracture-number reveal">$1 Trillion</div>
-            <p class="fracture-sub reveal">
-                Spent annually on healthcare payment administration.<br>
-                <em>Most of it is waste.</em>
+    <!-- === S1: HERO — Asymmetric, left-aligned === -->
+    <section class="slide" id="s1">
+        <div class="slide-inner stagger">
+            <div class="tag hero-tag reveal">Unaffiliated Payment Network</div>
+            <h1 class="hero-title reveal">Howlite</h1>
+            <p class="hero-sub reveal">
+                Transparent fees. Richer data.<br>
+                Real-time stablecoin settlement.
             </p>
-            <div class="fracture-stats reveal">
-                <div class="fracture-stat">
-                    <div class="fracture-stat-val">$43B</div>
-                    <div class="fracture-stat-label">Chasing insurer payments</div>
-                </div>
-                <div class="fracture-stat">
-                    <div class="fracture-stat-val">$18B</div>
-                    <div class="fracture-stat-label">Overturning claim denials</div>
-                </div>
-                <div class="fracture-stat">
-                    <div class="fracture-stat-val">68%</div>
-                    <div class="fracture-stat-label">Still use paper checks</div>
-                </div>
+            <div class="hero-pills reveal">
+                <div class="hero-pill"><span class="val">T+0</span> Settlement</div>
+                <div class="hero-pill"><span class="val">L3+FHIR</span> Data</div>
+                <div class="hero-pill"><span class="val">USDC</span> Native</div>
             </div>
         </div>
-        <div class="slide-watermark">02 / 14</div>
+        <div class="snum">01 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 3: FAULT LINES
-         ============================================ -->
-    <section class="slide fault-slide" id="s3">
-        <div class="slide-content stagger">
-            <div class="slide-header">
-                <p class="section-num reveal">FAULT LINES</p>
-                <h2 class="slide-title reveal">Healthcare payments are broken at every layer.</h2>
-            </div>
-            <div class="fault-grid">
-                <div class="fault-card reveal">
-                    <div class="fault-val">3.5%</div>
-                    <div class="fault-title">Interchange</div>
-                    <div class="fault-desc">Hidden in every swipe. Embedded fees that providers can't see or negotiate.</div>
-                </div>
-                <div class="fault-card reveal">
-                    <div class="fault-val">T+5</div>
-                    <div class="fault-title">Settlement</div>
-                    <div class="fault-desc">Days waiting for funds. Batch processing from an era before the internet.</div>
-                </div>
-                <div class="fault-card reveal">
-                    <div class="fault-val">$100</div>
-                    <div class="fault-title">Per Claim</div>
-                    <div class="fault-desc">Processing overhead per transaction including adjudication and reconciliation.</div>
-                </div>
-                <div class="fault-card reveal">
-                    <div class="fault-val">80%+</div>
-                    <div class="fault-title">Manual Compliance</div>
-                    <div class="fault-desc">IIAS/SIGIS substantiation done by hand. Human overhead that should be zero.</div>
-                </div>
+    <!-- === S2: $1 TRILLION — Dark impact === -->
+    <section class="slide dark" id="s2">
+        <div class="slide-inner stagger">
+            <p class="reveal" style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:#6B7280;">The Fracture</p>
+            <div class="impact-num reveal">$1 Trillion</div>
+            <p class="impact-sub reveal">Spent annually on healthcare payment administration.<br><em>Most of it is waste.</em></p>
+            <div class="impact-stats reveal">
+                <div><div class="impact-stat-val">$43B</div><div class="impact-stat-label">Chasing payments</div></div>
+                <div><div class="impact-stat-val">$18B</div><div class="impact-stat-label">Overturning denials</div></div>
+                <div><div class="impact-stat-val">68%</div><div class="impact-stat-label">Still paper checks</div></div>
             </div>
         </div>
-        <div class="slide-watermark">03 / 14</div>
+        <div class="snum">02 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 4: THE CRYSTAL — Solution
-         ============================================ -->
-    <section class="slide crystal-slide" id="s4">
-        <div class="slide-content stagger">
-            <div class="slide-header">
-                <p class="section-num reveal">THE CRYSTAL</p>
-                <h2 class="slide-title reveal">Infrastructure built from first principles.</h2>
-                <p class="slide-sub reveal">Works with existing bank-issued HSA/FSA cards. No new hardware. No merchant integration.</p>
+    <!-- === S3: FAULT LINES — List format === -->
+    <section class="slide" id="s3">
+        <div class="slide-inner stagger">
+            <div class="reveal">
+                <p style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); margin-bottom:clamp(0.3rem,0.5vh,0.4rem);">Fault Lines</p>
+                <h2 style="font-size:var(--title-size);">Healthcare payments are broken at every layer.</h2>
             </div>
-            <div class="pillar-grid">
-                <div class="pillar border-crystal reveal">
-                    <div class="pillar-num">01</div>
-                    <div class="pillar-icon c-crystal"><i class="fas fa-route"></i></div>
-                    <div class="pillar-title c-crystal">Intelligent Routing</div>
-                    <div class="pillar-text">Direct-route any POS terminal. Replaces interchange with a flat fee. Deploy in weeks, not months.</div>
-                    <div class="pillar-highlight c-crystal">$0.15 flat per transaction</div>
-                </div>
-                <div class="pillar border-purple reveal">
-                    <div class="pillar-num">02</div>
-                    <div class="pillar-icon c-purple"><i class="fas fa-brain"></i></div>
-                    <div class="pillar-title c-purple">AI Enrichment</div>
-                    <div class="pillar-text">FHIR-native transaction data. CPT/ICD auto-coded in real time. Full compliance, zero manual work.</div>
-                    <div class="pillar-highlight c-purple">100% auto-substantiation</div>
-                </div>
-                <div class="pillar border-signal reveal">
-                    <div class="pillar-num">03</div>
-                    <div class="pillar-icon c-signal"><i class="fas fa-bolt"></i></div>
-                    <div class="pillar-title c-signal">Real-Time Settlement</div>
-                    <div class="pillar-text">T+0 USDC settlement direct to EVM wallet. Hedera Hashgraph finality in seconds.</div>
-                    <div class="pillar-highlight c-signal">Same-day, every time</div>
-                </div>
-            </div>
-        </div>
-        <div class="slide-watermark">04 / 14</div>
-    </section>
-
-    <!-- ============================================
-         SLIDE 5: THE FLOW — Comparison
-         ============================================ -->
-    <section class="slide flow-slide" id="s5">
-        <div class="slide-content stagger">
-            <div class="slide-header">
-                <p class="section-num reveal">THE FLOW</p>
-                <h2 class="slide-title reveal">From swipe to settlement.</h2>
-            </div>
-            <div class="flow-comparison">
-                <div class="flow-path howlite-path reveal">
-                    <div class="flow-label c-crystal"><i class="fas fa-gem"></i> &nbsp;HOWLITE PATH</div>
-                    <div class="flow-steps">
-                        <span class="flow-step">Card</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">Enrich</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">Verify</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">Settle</span>
-                    </div>
-                    <div class="flow-metrics">
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-crystal">3 Parties</div>
-                            <div class="flow-metric-label">In the chain</div>
-                        </div>
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-crystal">$0.15</div>
-                            <div class="flow-metric-label">Flat fee</div>
-                        </div>
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-crystal">T+0</div>
-                            <div class="flow-metric-label">Settlement</div>
-                        </div>
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-crystal">L3+FHIR</div>
-                            <div class="flow-metric-label">Data depth</div>
-                        </div>
+            <div class="fault-list">
+                <div class="fault-row reveal">
+                    <div class="fault-num">3.5%</div>
+                    <div class="fault-body">
+                        <h3>Interchange fees</h3>
+                        <p>Hidden in every swipe. Embedded costs that providers can't see or negotiate.</p>
                     </div>
                 </div>
-                <div class="flow-path legacy-path reveal">
-                    <div class="flow-label c-danger"><i class="fas fa-link-slash"></i> &nbsp;LEGACY RAILS</div>
-                    <div class="flow-steps">
-                        <span class="flow-step">Card</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">Acquirer</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">Network</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">Issuer</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">TPA</span>
-                        <span class="flow-arrow"><i class="fas fa-chevron-right"></i></span>
-                        <span class="flow-step">Settle</span>
+                <div class="fault-row reveal">
+                    <div class="fault-num">T+5</div>
+                    <div class="fault-body">
+                        <h3>Settlement delay</h3>
+                        <p>Days waiting for your money. Batch processing from an era before the internet.</p>
                     </div>
-                    <div class="flow-metrics">
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-danger">6+ Parties</div>
-                            <div class="flow-metric-label">In the chain</div>
-                        </div>
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-danger">2–4%</div>
-                            <div class="flow-metric-label">Interchange fees</div>
-                        </div>
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-danger">T+3–T+5</div>
-                            <div class="flow-metric-label">Settlement</div>
-                        </div>
-                        <div class="flow-metric">
-                            <div class="flow-metric-val c-danger">None</div>
-                            <div class="flow-metric-label">Clinical data</div>
-                        </div>
+                </div>
+                <div class="fault-row reveal">
+                    <div class="fault-num">$100</div>
+                    <div class="fault-body">
+                        <h3>Cost per claim</h3>
+                        <p>Processing overhead including adjudication, reconciliation, and error correction.</p>
+                    </div>
+                </div>
+                <div class="fault-row reveal">
+                    <div class="fault-num">80%+</div>
+                    <div class="fault-body">
+                        <h3>Manual compliance</h3>
+                        <p>IIAS/SIGIS substantiation done by hand. Human overhead that should be zero.</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="slide-watermark">05 / 14</div>
+        <div class="snum">03 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 6: INTELLIGENCE — Terminal
-         ============================================ -->
-    <section class="slide intel-slide" id="s6">
-        <div class="slide-content stagger">
-            <div class="slide-header" style="text-align:center;">
-                <p class="section-num reveal">INTELLIGENCE</p>
-                <h2 class="slide-title reveal" style="text-align:center;">Every dollar explained.</h2>
+    <!-- === S4: THE FLOW — Animated comparison (dark) === -->
+    <section class="slide dark flow-slide" id="s4">
+        <div class="slide-inner stagger">
+            <div style="text-align:center;">
+                <p class="reveal" style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:#6B7280;">The Flow</p>
+                <h2 class="reveal" style="font-size:var(--title-size); text-align:center;">From swipe to settlement.</h2>
+            </div>
+
+            <div class="flow-diagram reveal-scale">
+                <!-- Howlite Path -->
+                <div class="flow-path-section howlite-section">
+                    <div class="flow-path-label"><i class="fas fa-gem"></i> Howlite <span class="badge">3 parties</span></div>
+                    <div class="flow-nodes">
+                        <div class="flow-node">Pay</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Enrich</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Verify</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Settle ✓</div>
+                    </div>
+                </div>
+
+                <!-- Legacy Path -->
+                <div class="flow-path-section legacy-section">
+                    <div class="flow-path-label"><i class="fas fa-link-slash"></i> Legacy Rails <span class="badge">6+ parties</span></div>
+                    <div class="flow-nodes">
+                        <div class="flow-node">Pay</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Acquirer</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Network</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Issuer</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Custodian</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">TPA</div>
+                        <div class="flow-connector"></div>
+                        <div class="flow-node">Settle</div>
+                    </div>
+                </div>
+
+                <!-- Outcomes comparison -->
+                <div class="flow-outcomes">
+                    <div class="flow-outcome good">
+                        <div><div class="fo-item-val">$0.15</div><div class="fo-item-label">Flat fee</div></div>
+                        <div><div class="fo-item-val">T+0</div><div class="fo-item-label">Settlement</div></div>
+                        <div><div class="fo-item-val">L3+FHIR</div><div class="fo-item-label">Data depth</div></div>
+                        <div><div class="fo-item-val">100%</div><div class="fo-item-label">Auto-compliance</div></div>
+                    </div>
+                    <div class="flow-outcome bad">
+                        <div><div class="fo-item-val">2–4%</div><div class="fo-item-label">Interchange</div></div>
+                        <div><div class="fo-item-val">T+3–T+5</div><div class="fo-item-label">Settlement</div></div>
+                        <div><div class="fo-item-val">None</div><div class="fo-item-label">Clinical data</div></div>
+                        <div><div class="fo-item-val">Manual</div><div class="fo-item-label">Compliance</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="snum">04 / 14</div>
+    </section>
+
+    <!-- === S5: SOLUTION — 3 pillars === -->
+    <section class="slide" id="s5">
+        <div class="slide-inner stagger">
+            <div class="reveal">
+                <p style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); margin-bottom:clamp(0.3rem,0.5vh,0.4rem);">The Solution</p>
+                <h2 style="font-size:var(--title-size);">Infrastructure built from first principles.</h2>
+                <p style="font-size:var(--body-size); color:var(--text-dim); margin-top:clamp(0.15rem,0.3vh,0.25rem);">Works with existing bank-issued HSA/FSA cards. No new hardware.</p>
+            </div>
+            <div class="solution-grid">
+                <div class="sol-card reveal">
+                    <div class="sol-num">01</div>
+                    <div class="sol-icon" style="color:var(--brand);"><i class="fas fa-route"></i></div>
+                    <div class="sol-title" style="color:var(--brand);">Intelligent Routing</div>
+                    <div class="sol-text">Direct-route any POS terminal. Replaces interchange with a flat fee. Deploy in weeks.</div>
+                    <div class="sol-highlight" style="color:var(--brand);">$0.15 flat per transaction</div>
+                </div>
+                <div class="sol-card reveal">
+                    <div class="sol-num">02</div>
+                    <div class="sol-icon" style="color:var(--purple);"><i class="fas fa-brain"></i></div>
+                    <div class="sol-title" style="color:var(--purple);">AI Enrichment</div>
+                    <div class="sol-text">FHIR-native transaction data. CPT/ICD auto-coded in real time. Zero manual compliance.</div>
+                    <div class="sol-highlight" style="color:var(--purple);">100% auto-substantiation</div>
+                </div>
+                <div class="sol-card reveal">
+                    <div class="sol-num">03</div>
+                    <div class="sol-icon" style="color:var(--blue);"><i class="fas fa-bolt"></i></div>
+                    <div class="sol-title" style="color:var(--blue);">Real-Time Settlement</div>
+                    <div class="sol-text">T+0 USDC settlement direct to EVM wallet. Hedera Hashgraph finality in seconds.</div>
+                    <div class="sol-highlight" style="color:var(--blue);">Same-day, every time</div>
+                </div>
+            </div>
+        </div>
+        <div class="snum">05 / 14</div>
+    </section>
+
+    <!-- === S6: INTELLIGENCE — Terminal === -->
+    <section class="slide" id="s6">
+        <div class="slide-inner stagger">
+            <div style="text-align:center;">
+                <p class="reveal" style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim);">Intelligence</p>
+                <h2 class="reveal" style="font-size:var(--title-size); text-align:center;">Every dollar explained.</h2>
             </div>
             <div class="terminal reveal-scale">
                 <div class="terminal-bar">
-                    <div class="terminal-dot" style="background:var(--danger)"></div>
-                    <div class="terminal-dot" style="background:var(--mineral)"></div>
-                    <div class="terminal-dot" style="background:var(--crystal)"></div>
+                    <div class="terminal-dot" style="background:#EF4444"></div>
+                    <div class="terminal-dot" style="background:#F59E0B"></div>
+                    <div class="terminal-dot" style="background:#22C55E"></div>
                     <span class="terminal-title">howlite — enriched transaction</span>
                 </div>
                 <div class="terminal-body">
-                    <div class="terminal-line"><span class="terminal-key">merchant</span> <span class="terminal-val">CVS Pharmacy #4821</span></div>
-                    <div class="terminal-line"><span class="terminal-key">amount</span> <span class="terminal-val">$47.23</span></div>
-                    <div class="terminal-line"><span class="terminal-key">mcc</span> <span class="terminal-val data">5912 — Drug Stores</span></div>
-                    <hr class="terminal-divider">
-                    <div class="terminal-line"><span class="terminal-key">cpt_codes</span> <span class="terminal-val data">[ "99213", "90471" ]</span></div>
-                    <div class="terminal-line"><span class="terminal-key">icd_10</span> <span class="terminal-val data">J06.9 — Upper Respiratory</span></div>
-                    <div class="terminal-line"><span class="terminal-key">fhir_level</span> <span class="terminal-val data">L3 — Full IIAS</span></div>
-                    <div class="terminal-line"><span class="terminal-key">iias_status</span> <span class="terminal-val verified"><i class="fas fa-check-circle"></i> VERIFIED</span></div>
-                    <hr class="terminal-divider">
-                    <div class="terminal-line"><span class="terminal-key">fraud_score</span> <span class="terminal-val verified">0.02 — LOW RISK</span></div>
-                    <div class="terminal-line"><span class="terminal-key">howlite_fee</span> <span class="terminal-val fee">$0.15 flat</span></div>
-                    <div class="terminal-line"><span class="terminal-key">settlement</span> <span class="terminal-val verified">T+0 · USDC · Hedera #38291047</span></div>
+                    <div class="t-line"><span class="t-key">merchant</span> <span class="t-val">CVS Pharmacy #4821</span></div>
+                    <div class="t-line"><span class="t-key">amount</span> <span class="t-val">$47.23</span></div>
+                    <div class="t-line"><span class="t-key">mcc</span> <span class="t-val blue">5912 — Drug Stores</span></div>
+                    <hr class="t-divider">
+                    <div class="t-line"><span class="t-key">cpt_codes</span> <span class="t-val blue">[ "99213", "90471" ]</span></div>
+                    <div class="t-line"><span class="t-key">icd_10</span> <span class="t-val blue">J06.9 — Upper Respiratory</span></div>
+                    <div class="t-line"><span class="t-key">fhir_level</span> <span class="t-val blue">L3 — Full IIAS</span></div>
+                    <div class="t-line"><span class="t-key">iias_status</span> <span class="t-val green"><i class="fas fa-check-circle"></i> VERIFIED</span></div>
+                    <hr class="t-divider">
+                    <div class="t-line"><span class="t-key">fraud_score</span> <span class="t-val green">0.02 — LOW RISK</span></div>
+                    <div class="t-line"><span class="t-key">howlite_fee</span> <span class="t-val amber">$0.15 flat</span></div>
+                    <div class="t-line"><span class="t-key">settlement</span> <span class="t-val green">T+0 · USDC · Hedera #38291047</span></div>
                 </div>
             </div>
         </div>
-        <div class="slide-watermark">06 / 14</div>
+        <div class="snum">06 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 7: THE YIELD
-         ============================================ -->
-    <section class="slide yield-slide" id="s7">
-        <div class="slide-content stagger">
-            <div class="slide-header">
-                <p class="section-num reveal">THE YIELD</p>
-                <h2 class="slide-title reveal">The economics of clarity.</h2>
+    <!-- === S7: THE YIELD — Featured + supporting === -->
+    <section class="slide" id="s7">
+        <div class="slide-inner stagger">
+            <div class="reveal">
+                <p style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); margin-bottom:clamp(0.3rem,0.5vh,0.4rem);">The Yield</p>
+                <h2 style="font-size:var(--title-size);">The economics of clarity.</h2>
             </div>
-            <div class="yield-grid">
-                <div class="yield-card reveal">
-                    <div class="yield-val c-crystal">60%</div>
-                    <div class="yield-label">Lower Cost</div>
-                    <div class="yield-desc">$0.15 flat vs. 2.5–3.5% interchange</div>
+            <div class="yield-layout">
+                <div class="yield-featured reveal">
+                    <div class="yield-featured-val">60%</div>
+                    <div class="yield-featured-label">Lower Processing Cost</div>
+                    <div class="yield-featured-desc">$0.15 flat vs. 2.5–3.5% interchange on every transaction</div>
                 </div>
-                <div class="yield-card reveal">
-                    <div class="yield-val c-purple">L3</div>
-                    <div class="yield-label">Clinical Data</div>
-                    <div class="yield-desc">FHIR fields on every transaction</div>
-                </div>
-                <div class="yield-card reveal">
-                    <div class="yield-val c-signal">T+0</div>
-                    <div class="yield-label">Settlement</div>
-                    <div class="yield-desc">USDC direct to EVM wallet</div>
-                </div>
-                <div class="yield-card reveal">
-                    <div class="yield-val c-mineral">100%</div>
-                    <div class="yield-label">Compliance</div>
-                    <div class="yield-desc">Full audit trail, automated</div>
+                <div class="yield-supporting">
+                    <div class="yield-item reveal">
+                        <div class="yield-item-val" style="color:var(--purple);">L3</div>
+                        <div class="yield-item-text">
+                            <h4>Clinical Data</h4>
+                            <p>FHIR fields on every txn</p>
+                        </div>
+                    </div>
+                    <div class="yield-item reveal">
+                        <div class="yield-item-val" style="color:var(--blue);">T+0</div>
+                        <div class="yield-item-text">
+                            <h4>Settlement</h4>
+                            <p>USDC direct to EVM wallet</p>
+                        </div>
+                    </div>
+                    <div class="yield-item reveal">
+                        <div class="yield-item-val" style="color:var(--amber);">100%</div>
+                        <div class="yield-item-text">
+                            <h4>Compliance</h4>
+                            <p>Full audit trail, automated</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="slide-watermark">07 / 14</div>
+        <div class="snum">07 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 8: THE LEDGER — Hedera
-         ============================================ -->
-    <section class="slide ledger-slide" id="s8">
-        <div class="slide-content stagger">
-            <div class="slide-header" style="text-align:center;">
-                <p class="section-num reveal">THE LEDGER</p>
-                <h2 class="slide-title reveal" style="text-align:center;">Settlement at network speed.</h2>
-                <p class="slide-sub reveal" style="text-align:center; margin: 0 auto;">Hedera Hashgraph. Distributed ledger with aBFT consensus. Carbon-negative by design.</p>
+    <!-- === S8: LEDGER — Hedera (dark) === -->
+    <section class="slide dark" id="s8">
+        <div class="slide-inner stagger">
+            <div style="text-align:center;">
+                <p class="reveal" style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:#6B7280;">The Ledger</p>
+                <h2 class="reveal" style="font-size:var(--title-size); text-align:center;">Settlement at network speed.</h2>
+                <p class="reveal" style="font-size:var(--body-size); color:#9CA3AF; text-align:center; margin-top:clamp(0.1rem,0.2vh,0.15rem);">Hedera Hashgraph · aBFT consensus · Carbon-negative</p>
             </div>
-            <div class="ledger-stats">
-                <div class="ledger-stat reveal">
-                    <div class="ledger-stat-val">10,000+</div>
-                    <div class="ledger-stat-label">Transactions / sec</div>
-                </div>
-                <div class="ledger-stat reveal">
-                    <div class="ledger-stat-val">3–5s</div>
-                    <div class="ledger-stat-label">Finality</div>
-                </div>
-                <div class="ledger-stat reveal">
-                    <div class="ledger-stat-val">$0.001</div>
-                    <div class="ledger-stat-label">Per settlement</div>
-                </div>
-                <div class="ledger-stat reveal">
-                    <div class="ledger-stat-val">24/7</div>
-                    <div class="ledger-stat-label">No batch windows</div>
-                </div>
+            <div class="ledger-grid reveal">
+                <div class="ledger-cell"><div class="ledger-val">10,000+</div><div class="ledger-label">TPS</div></div>
+                <div class="ledger-cell"><div class="ledger-val">3–5s</div><div class="ledger-label">Finality</div></div>
+                <div class="ledger-cell"><div class="ledger-val">$0.001</div><div class="ledger-label">Per settlement</div></div>
+                <div class="ledger-cell"><div class="ledger-val">24/7</div><div class="ledger-label">No batch windows</div></div>
             </div>
             <div style="text-align:center;" class="reveal">
-                <p class="label" style="margin-bottom: clamp(0.3rem, 0.5vh, 0.4rem);">Governing Council</p>
-                <div class="council-list">
-                    <span class="council-item">Google</span>
-                    <span class="council-item">IBM</span>
-                    <span class="council-item">Boeing</span>
-                    <span class="council-item">Dell</span>
-                    <span class="council-item">LG</span>
-                    <span class="council-item">Deutsche Telekom</span>
-                    <span class="council-item">ServiceNow</span>
-                    <span class="council-item">Ubisoft</span>
+                <p style="font-family:var(--font-mono); font-size:clamp(0.5rem,0.7vw,0.6rem); letter-spacing:0.12em; text-transform:uppercase; color:#6B7280; margin-bottom:clamp(0.25rem,0.4vh,0.35rem);">Governing Council</p>
+                <div class="council">
+                    <span>Google</span><span>IBM</span><span>Boeing</span><span>Dell</span>
+                    <span>LG</span><span>Deutsche Telekom</span><span>ServiceNow</span><span>Ubisoft</span>
                 </div>
             </div>
         </div>
-        <div class="slide-watermark">08 / 14</div>
+        <div class="snum">08 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 9: MARKET
-         ============================================ -->
-    <section class="slide market-slide" id="s9">
-        <div class="slide-content stagger">
-            <p class="section-num reveal">THE MARKET</p>
-            <div class="market-number reveal">$200B+</div>
-            <p class="fracture-sub reveal" style="text-align:center;">
-                Annual HSA/FSA card payments.<br>
-                <em>First-mover advantage in stablecoin healthcare settlement.</em>
-            </p>
-            <div class="market-context reveal">
-                <div class="market-ctx-item">
-                    <div class="market-ctx-val c-crystal">70M+</div>
-                    <div class="market-ctx-label">HSA/FSA cardholders</div>
+    <!-- === S9: MARKET — $200B+ (dark) === -->
+    <section class="slide dark" id="s9">
+        <div class="slide-inner stagger" style="align-items:center; text-align:center; gap:clamp(0.5rem,1.5vh,1.25rem);">
+            <p class="reveal" style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:#6B7280;">The Market</p>
+            <div class="market-num reveal">$200B+</div>
+            <p class="reveal" style="font-size:clamp(0.9rem,1.8vw,1.3rem); color:#9CA3AF; max-width:450px;">Annual HSA/FSA card payments.<br><em>First mover in stablecoin healthcare settlement.</em></p>
+            <div class="market-stats reveal">
+                <div><div class="ms-val" style="color:#34D399;">70M+</div><div class="ms-label">Cardholders</div></div>
+                <div><div class="ms-val" style="color:#60A5FA;">12.5%</div><div class="ms-label">CAGR</div></div>
+                <div><div class="ms-val" style="color:#FBBF24;">$147B</div><div class="ms-label">HSA assets</div></div>
+                <div><div class="ms-val" style="color:#F87171;">$40B+</div><div class="ms-label">Waste</div></div>
+            </div>
+        </div>
+        <div class="snum">09 / 14</div>
+    </section>
+
+    <!-- === S10: MOMENTUM — Regulatory (light) === -->
+    <section class="slide" id="s10">
+        <div class="slide-inner stagger">
+            <div class="reveal">
+                <p style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); margin-bottom:clamp(0.3rem,0.5vh,0.4rem);">Momentum</p>
+                <h2 style="font-size:var(--title-size);">The law is on our side.</h2>
+                <p style="font-size:var(--body-size); color:var(--text-dim); margin-top:clamp(0.1rem,0.2vh,0.15rem);">Federal legislation is actively creating the framework Howlite was built for.</p>
+            </div>
+            <div class="reg-cards">
+                <div class="reg-card rc-green reveal">
+                    <div class="reg-badge rb-green">Active Law</div>
+                    <h3>Durbin Amendment</h3>
+                    <p>Requires banks with $10B+ assets to enable multiple debit network routing. Makes Howlite a legally mandated choice.</p>
                 </div>
-                <div class="market-ctx-item">
-                    <div class="market-ctx-val c-signal">12.5%</div>
-                    <div class="market-ctx-label">Annual CAGR</div>
+                <div class="reg-card rc-blue reveal">
+                    <div class="reg-badge rb-blue">Bipartisan</div>
+                    <h3>Credit Card Competition Act</h3>
+                    <p>Extends Durbin-style routing to credit cards. Signals TAM expansion beyond debit into the full card ecosystem.</p>
                 </div>
-                <div class="market-ctx-item">
-                    <div class="market-ctx-val c-mineral">$147B</div>
-                    <div class="market-ctx-label">Total HSA assets</div>
-                </div>
-                <div class="market-ctx-item">
-                    <div class="market-ctx-val c-danger">$40B+</div>
-                    <div class="market-ctx-label">Addressable waste</div>
+                <div class="reg-card rc-purple reveal">
+                    <div class="reg-badge rb-purple">Signed 2025</div>
+                    <h3>GENIUS Act</h3>
+                    <p>First federal stablecoin framework. 1:1 reserve backing. Legitimizes T+0 USDC settlement with regulatory clarity.</p>
                 </div>
             </div>
         </div>
-        <div class="slide-watermark">09 / 14</div>
+        <div class="snum">10 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 10: MOMENTUM — Regulatory
-         ============================================ -->
-    <section class="slide momentum-slide" id="s10">
-        <div class="slide-content stagger">
-            <div class="slide-header">
-                <p class="section-num reveal">MOMENTUM</p>
-                <h2 class="slide-title reveal">The law is on our side.</h2>
-                <p class="slide-sub reveal">Federal legislation is actively creating the framework Howlite was built for.</p>
+    <!-- === S11: BENEFITS === -->
+    <section class="slide" id="s11">
+        <div class="slide-inner stagger">
+            <div class="reveal">
+                <p style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); margin-bottom:clamp(0.3rem,0.5vh,0.4rem);">Benefits</p>
+                <h2 style="font-size:var(--title-size);">Value for both sides.</h2>
             </div>
-            <div class="reg-grid">
-                <div class="reg-card border-crystal reveal">
-                    <div class="reg-status" style="background:var(--crystal-dim); color:var(--crystal);">Active Law</div>
-                    <div class="reg-title">Durbin Amendment</div>
-                    <div class="reg-desc">Requires banks with $10B+ assets to enable multiple debit network routing. Makes Howlite a legally mandated choice.</div>
+            <div class="benefits-split">
+                <div class="ben-col reveal">
+                    <div class="ben-header" style="color:var(--brand);"><i class="fas fa-hospital"></i> Healthcare Providers</div>
+                    <div class="ben-item"><i class="fas fa-bolt" style="color:var(--brand);"></i> T+0 same-day settlement</div>
+                    <div class="ben-item"><i class="fas fa-arrow-down" style="color:var(--brand);"></i> 60% lower processing costs</div>
+                    <div class="ben-item"><i class="fas fa-check-double" style="color:var(--brand);"></i> Auto-substantiation (L3 + FHIR)</div>
+                    <div class="ben-item"><i class="fas fa-shield-halved" style="color:var(--brand);"></i> Reduced chargebacks &amp; disputes</div>
+                    <div class="ben-item"><i class="fas fa-chart-line" style="color:var(--brand);"></i> Real-time revenue visibility</div>
                 </div>
-                <div class="reg-card border-signal reveal">
-                    <div class="reg-status" style="background:var(--signal-dim); color:var(--signal);">Bipartisan</div>
-                    <div class="reg-title">Credit Card Competition Act</div>
-                    <div class="reg-desc">Extends Durbin-style routing to credit cards. Signals TAM expansion beyond debit into the full card ecosystem.</div>
-                </div>
-                <div class="reg-card border-purple reveal">
-                    <div class="reg-status" style="background:var(--purple-dim); color:var(--purple);">Signed 2025</div>
-                    <div class="reg-title">GENIUS Act</div>
-                    <div class="reg-desc">First federal stablecoin framework. 1:1 reserve backing required. Legitimizes T+0 USDC settlement with regulatory clarity.</div>
+                <div class="ben-col reveal">
+                    <div class="ben-header" style="color:var(--blue);"><i class="fas fa-building-columns"></i> Card Issuers</div>
+                    <div class="ben-item"><i class="fas fa-coins" style="color:var(--blue);"></i> New HSA/FSA routing revenue</div>
+                    <div class="ben-item"><i class="fas fa-robot" style="color:var(--blue);"></i> 80%+ compliance burden reduction</div>
+                    <div class="ben-item"><i class="fas fa-fingerprint" style="color:var(--blue);"></i> AI-powered fraud prevention</div>
+                    <div class="ben-item"><i class="fas fa-scale-balanced" style="color:var(--blue);"></i> Durbin compliance ready</div>
+                    <div class="ben-item"><i class="fas fa-seedling" style="color:var(--blue);"></i> Yield-bearing settlement (hUSD)</div>
                 </div>
             </div>
         </div>
-        <div class="slide-watermark">10 / 14</div>
+        <div class="snum">11 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 11: BENEFITS
-         ============================================ -->
-    <section class="slide benefits-slide" id="s11">
-        <div class="slide-content stagger">
-            <div class="slide-header">
-                <p class="section-num reveal">BENEFITS</p>
-                <h2 class="slide-title reveal">Value for both sides of the transaction.</h2>
+    <!-- === S12: TEAM === -->
+    <section class="slide" id="s12">
+        <div class="slide-inner stagger">
+            <div style="text-align:center;">
+                <p class="reveal" style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim);">The Formation</p>
+                <h2 class="reveal" style="font-size:var(--title-size); text-align:center;">Built by the team that built<br>Visa's authentication network.</h2>
             </div>
-            <div class="benefits-grid">
-                <div class="benefits-col border-crystal reveal">
-                    <div class="benefits-col-title c-crystal"><i class="fas fa-hospital"></i> &nbsp;Healthcare Providers</div>
-                    <div class="benefit-item"><i class="fas fa-bolt c-crystal"></i> T+0 same-day settlement</div>
-                    <div class="benefit-item"><i class="fas fa-arrow-down c-crystal"></i> 60% lower processing costs</div>
-                    <div class="benefit-item"><i class="fas fa-check-double c-crystal"></i> Auto-substantiation (L3 + FHIR)</div>
-                    <div class="benefit-item"><i class="fas fa-shield-halved c-crystal"></i> Reduced chargebacks &amp; disputes</div>
-                    <div class="benefit-item"><i class="fas fa-chart-line c-crystal"></i> Real-time revenue visibility</div>
-                </div>
-                <div class="benefits-col border-signal reveal">
-                    <div class="benefits-col-title c-signal"><i class="fas fa-building-columns"></i> &nbsp;Card Issuers</div>
-                    <div class="benefit-item"><i class="fas fa-coins c-signal"></i> New HSA/FSA routing revenue</div>
-                    <div class="benefit-item"><i class="fas fa-robot c-signal"></i> 80%+ compliance burden reduction</div>
-                    <div class="benefit-item"><i class="fas fa-fingerprint c-signal"></i> AI-powered fraud prevention</div>
-                    <div class="benefit-item"><i class="fas fa-scale-balanced c-signal"></i> Durbin compliance ready</div>
-                    <div class="benefit-item"><i class="fas fa-seedling c-signal"></i> Yield-bearing settlement (hUSD)</div>
-                </div>
-            </div>
-        </div>
-        <div class="slide-watermark">11 / 14</div>
-    </section>
-
-    <!-- ============================================
-         SLIDE 12: THE FORMATION — Team
-         ============================================ -->
-    <section class="slide team-slide" id="s12">
-        <div class="slide-content stagger">
-            <div class="slide-header" style="text-align:center;">
-                <p class="section-num reveal">THE FORMATION</p>
-                <h2 class="slide-title reveal" style="text-align:center;">Built by the team that built Visa's authentication network.</h2>
-            </div>
-            <div class="team-grid">
-                <div class="team-card border-signal reveal">
-                    <img src="img/tim.jpg" alt="Tim Sherwin" class="team-photo">
+            <div class="team-row">
+                <div class="team-member reveal">
+                    <img src="img/tim.jpg" alt="Tim Sherwin" class="team-img">
                     <div class="team-name">Tim Sherwin</div>
-                    <div class="team-role c-signal">CEO / Co-Founder</div>
-                    <div class="team-bio">Founded CardinalCommerce (acquired by Visa). 20+ years in card-network infrastructure.</div>
+                    <div class="team-role" style="color:var(--blue);">CEO / Co-Founder</div>
+                    <div class="team-bio">Founded CardinalCommerce (acquired by Visa). 20+ years card-network infrastructure.</div>
                 </div>
-                <div class="team-card border-purple reveal">
-                    <img src="img/chandra.jpg" alt="Chandra B." class="team-photo">
+                <div class="team-member reveal">
+                    <img src="img/chandra.jpg" alt="Chandra B." class="team-img">
                     <div class="team-name">Chandra B.</div>
-                    <div class="team-role c-purple">CTO / Co-Founder</div>
+                    <div class="team-role" style="color:var(--purple);">CTO / Co-Founder</div>
                     <div class="team-bio">Co-founded CardinalCommerce. 20+ patents. Blockchain &amp; distributed systems architect.</div>
                 </div>
-                <div class="team-card border-crystal reveal">
-                    <img src="img/steve.jpg" alt="Steve Rosen" class="team-photo">
+                <div class="team-member reveal">
+                    <img src="img/steve.jpg" alt="Steve Rosen" class="team-img">
                     <div class="team-name">Steve Rosen</div>
-                    <div class="team-role c-crystal">Co-Founder</div>
-                    <div class="team-bio">Founded Resilience Capital. Serial fintech entrepreneur. Strategic partnerships expert.</div>
+                    <div class="team-role" style="color:var(--brand);">Co-Founder</div>
+                    <div class="team-bio">Founded Resilience Capital. Serial fintech entrepreneur. Strategic partnerships.</div>
                 </div>
-                <div class="team-card border-mineral reveal">
-                    <div class="team-photo" style="background:var(--elevated); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:clamp(1rem,2vw,1.5rem); font-weight:700; color:var(--mineral);">OS</div>
+                <div class="team-member reveal">
+                    <div class="team-img-placeholder">OS</div>
                     <div class="team-name">Oliver Sherwin</div>
-                    <div class="team-role c-mineral">Head of Operations</div>
-                    <div class="team-bio">Partner onboarding, product cadence. Background in fintech operations at scale.</div>
+                    <div class="team-role" style="color:var(--amber);">Head of Operations</div>
+                    <div class="team-bio">Partner onboarding, product cadence. Fintech operations at scale.</div>
                 </div>
             </div>
             <div style="text-align:center;" class="reveal">
-                <div class="team-badge"><i class="fas fa-trophy"></i> &nbsp;Proven exit: CardinalCommerce — acquired by Visa, 2016</div>
+                <div class="visa-badge"><i class="fas fa-trophy"></i> Proven exit: CardinalCommerce — acquired by Visa, 2016</div>
             </div>
         </div>
-        <div class="slide-watermark">12 / 14</div>
+        <div class="snum">12 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 13: THE NETWORK — Partnerships
-         ============================================ -->
-    <section class="slide network-slide" id="s13">
-        <div class="slide-content stagger">
-            <div class="slide-header">
-                <p class="section-num reveal">THE NETWORK</p>
-                <h2 class="slide-title reveal">Join the network.</h2>
-                <p class="slide-sub reveal">The network gets better with you in it.</p>
+    <!-- === S13: PARTNERS === -->
+    <section class="slide" id="s13">
+        <div class="slide-inner stagger">
+            <div class="reveal">
+                <p style="font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:0.15em; text-transform:uppercase; color:var(--text-dim); margin-bottom:clamp(0.3rem,0.5vh,0.4rem);">The Network</p>
+                <h2 style="font-size:var(--title-size);">Join the network.</h2>
+                <p style="font-size:var(--body-size); color:var(--text-dim);">The network gets better with you in it.</p>
             </div>
             <div class="partner-grid">
-                <div class="partner-card border-signal reveal">
-                    <div class="partner-icon c-signal"><i class="fas fa-building-columns"></i></div>
-                    <div class="partner-title">Banks &amp; Credit Unions</div>
-                    <div class="partner-details">80%+ compliance reduction. Real-time fraud prevention. New HSA routing revenue stream.</div>
+                <div class="p-card reveal">
+                    <div class="p-card-icon" style="color:var(--blue);"><i class="fas fa-building-columns"></i></div>
+                    <h3>Banks &amp; Credit Unions</h3>
+                    <p>80%+ compliance reduction. Real-time fraud prevention. New HSA routing revenue.</p>
                 </div>
-                <div class="partner-card border-danger reveal">
-                    <div class="partner-icon c-danger"><i class="fas fa-hospital"></i></div>
-                    <div class="partner-title">Healthcare Systems</div>
-                    <div class="partner-details">T+0 settlement. Auto-substantiation. 60% lower processing costs. Every dollar explained.</div>
+                <div class="p-card reveal">
+                    <div class="p-card-icon" style="color:var(--danger);"><i class="fas fa-hospital"></i></div>
+                    <h3>Healthcare Systems</h3>
+                    <p>T+0 settlement. Auto-substantiation. 60% lower processing costs.</p>
                 </div>
-                <div class="partner-card border-mineral reveal">
-                    <div class="partner-icon c-mineral"><i class="fas fa-handshake"></i></div>
-                    <div class="partner-title">Strategic Partners</div>
-                    <div class="partner-details">Per-transaction revenue share. Interchange delta capture. Early-mover equity option.</div>
+                <div class="p-card reveal">
+                    <div class="p-card-icon" style="color:var(--amber);"><i class="fas fa-handshake"></i></div>
+                    <h3>Strategic Partners</h3>
+                    <p>Per-transaction revenue share. Interchange delta capture. Early-mover equity.</p>
                 </div>
-                <div class="partner-card border-purple reveal">
-                    <div class="partner-icon c-purple"><i class="fas fa-microchip"></i></div>
-                    <div class="partner-title">Technology Partners</div>
-                    <div class="partner-details">Hedera settlement layer. USDC fiat bridge. API-first integration. Deploy in weeks.</div>
+                <div class="p-card reveal">
+                    <div class="p-card-icon" style="color:var(--purple);"><i class="fas fa-microchip"></i></div>
+                    <h3>Technology Partners</h3>
+                    <p>Hedera settlement layer. USDC fiat bridge. API-first. Deploy in weeks.</p>
                 </div>
             </div>
         </div>
-        <div class="slide-watermark">13 / 14</div>
+        <div class="snum">13 / 14</div>
     </section>
 
-    <!-- ============================================
-         SLIDE 14: THE INVITATION — CTA
-         ============================================ -->
-    <section class="slide cta-slide" id="s14">
-        <div class="slide-content stagger">
-            <div class="crystal-mark reveal" style="margin: 0 auto;">
-                <div class="crystal-hex"><span>H</span></div>
-            </div>
-            <h2 class="cta-headline reveal">
-                Route smarter.<br>
-                Settle faster.<br>
-                See everything.
-            </h2>
-            <a href="https://portal.howlitecorp.com/contact" class="cta-btn reveal">
-                <i class="fas fa-arrow-right"></i> Join the Network
-            </a>
-            <div class="cta-metrics reveal">
-                <div class="cta-metric">
-                    <div class="cta-metric-val">T+0</div>
-                    <div class="cta-metric-label">Settlement</div>
-                </div>
-                <div class="cta-metric">
-                    <div class="cta-metric-val">L3+FHIR</div>
-                    <div class="cta-metric-label">Data Depth</div>
-                </div>
-                <div class="cta-metric">
-                    <div class="cta-metric-val">USDC</div>
-                    <div class="cta-metric-label">Native Currency</div>
-                </div>
+    <!-- === S14: CTA === -->
+    <section class="slide" id="s14">
+        <div class="slide-inner stagger" style="align-items:center; text-align:center; gap:clamp(0.75rem,2vh,1.5rem);">
+            <h2 class="cta-title reveal">Route smarter.<br>Settle faster.<br>See everything.</h2>
+            <a href="https://portal.howlitecorp.com/contact" class="cta-btn reveal"><i class="fas fa-arrow-right"></i> Join the Network</a>
+            <div class="cta-pills reveal">
+                <div><div class="cta-pill-val">T+0</div><div class="cta-pill-label">Settlement</div></div>
+                <div><div class="cta-pill-val">L3+FHIR</div><div class="cta-pill-label">Data</div></div>
+                <div><div class="cta-pill-val">USDC</div><div class="cta-pill-label">Native</div></div>
             </div>
             <p class="cta-domain reveal">howlitecorp.com</p>
         </div>
-        <div class="slide-watermark">14 / 14</div>
+        <div class="snum">14 / 14</div>
     </section>
 
-    <!-- ============================================
-         JAVASCRIPT — Presentation Controller
-         ============================================ -->
     <script>
         class SlidePresentation {
             constructor() {
                 this.slides = document.querySelectorAll('.slide');
-                this.totalSlides = this.slides.length;
-                this.currentSlide = 0;
-
-                this.setupIntersectionObserver();
-                this.setupKeyboardNav();
-                this.setupTouchNav();
-                this.setupWheelNav();
-                this.setupProgressBar();
-                this.setupNavDots();
-
-                // Mark first slide visible immediately
+                this.total = this.slides.length;
+                this.current = 0;
+                this.setupObserver();
+                this.setupKeys();
+                this.setupTouch();
+                this.setupWheel();
+                this.setupProgress();
+                this.setupDots();
                 this.slides[0].classList.add('visible');
             }
 
-            setupIntersectionObserver() {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            const idx = Array.from(this.slides).indexOf(entry.target);
-                            if (idx !== -1) {
-                                this.currentSlide = idx;
-                                this.updateProgressBar();
-                                this.updateNavDots();
-                            }
+            setupObserver() {
+                new IntersectionObserver((entries) => {
+                    entries.forEach(e => {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('visible');
+                            const i = Array.from(this.slides).indexOf(e.target);
+                            if (i !== -1) { this.current = i; this.updateUI(); }
                         }
                     });
-                }, { threshold: 0.5 });
-
-                this.slides.forEach(slide => observer.observe(slide));
+                }, { threshold: 0.5 }).observe && this.slides.forEach(s =>
+                    new IntersectionObserver((entries) => {
+                        entries.forEach(e => {
+                            if (e.isIntersecting) {
+                                e.target.classList.add('visible');
+                                const i = Array.from(this.slides).indexOf(e.target);
+                                if (i !== -1) { this.current = i; this.updateUI(); }
+                            }
+                        });
+                    }, { threshold: 0.5 }).observe(s)
+                );
             }
 
-            setupKeyboardNav() {
-                document.addEventListener('keydown', (e) => {
-                    switch(e.key) {
-                        case 'ArrowDown':
-                        case 'ArrowRight':
-                        case ' ':
-                            e.preventDefault();
-                            this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
-                            break;
-                        case 'ArrowUp':
-                        case 'ArrowLeft':
-                            e.preventDefault();
-                            this.goToSlide(Math.max(this.currentSlide - 1, 0));
-                            break;
-                        case 'Home':
-                            e.preventDefault();
-                            this.goToSlide(0);
-                            break;
-                        case 'End':
-                            e.preventDefault();
-                            this.goToSlide(this.totalSlides - 1);
-                            break;
-                        case 'f':
-                        case 'F':
-                            this.toggleFullscreen();
-                            break;
+            setupKeys() {
+                document.addEventListener('keydown', e => {
+                    const k = e.key;
+                    if (['ArrowDown','ArrowRight',' '].includes(k)) { e.preventDefault(); this.go(this.current + 1); }
+                    else if (['ArrowUp','ArrowLeft'].includes(k)) { e.preventDefault(); this.go(this.current - 1); }
+                    else if (k === 'Home') { e.preventDefault(); this.go(0); }
+                    else if (k === 'End') { e.preventDefault(); this.go(this.total - 1); }
+                    else if (k === 'f' || k === 'F') {
+                        if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+                        else document.exitFullscreen().catch(()=>{});
                     }
                 });
             }
 
-            setupTouchNav() {
-                let startY = 0, startX = 0;
-                document.addEventListener('touchstart', (e) => {
-                    startY = e.touches[0].clientY;
-                    startX = e.touches[0].clientX;
-                }, { passive: true });
-
-                document.addEventListener('touchend', (e) => {
-                    const dY = startY - e.changedTouches[0].clientY;
-                    const dX = startX - e.changedTouches[0].clientX;
-                    if (Math.abs(dY) > Math.abs(dX) && Math.abs(dY) > 50) {
-                        if (dY > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
-                        else this.goToSlide(Math.max(this.currentSlide - 1, 0));
-                    }
+            setupTouch() {
+                let sy = 0;
+                document.addEventListener('touchstart', e => { sy = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', e => {
+                    const d = sy - e.changedTouches[0].clientY;
+                    if (Math.abs(d) > 50) this.go(d > 0 ? this.current + 1 : this.current - 1);
                 }, { passive: true });
             }
 
-            setupWheelNav() {
-                let timeout = null, scrolling = false;
-                document.addEventListener('wheel', (e) => {
-                    if (scrolling) return;
-                    scrolling = true;
-                    if (e.deltaY > 30) this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
-                    else if (e.deltaY < -30) this.goToSlide(Math.max(this.currentSlide - 1, 0));
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => { scrolling = false; }, 800);
+            setupWheel() {
+                let lock = false, t;
+                document.addEventListener('wheel', e => {
+                    if (lock) return; lock = true;
+                    if (e.deltaY > 30) this.go(this.current + 1);
+                    else if (e.deltaY < -30) this.go(this.current - 1);
+                    clearTimeout(t); t = setTimeout(() => lock = false, 800);
                 }, { passive: true });
             }
 
-            goToSlide(index) {
-                if (index < 0 || index >= this.totalSlides) return;
-                this.currentSlide = index;
-                this.slides[index].scrollIntoView({ behavior: 'smooth' });
-                this.updateProgressBar();
-                this.updateNavDots();
+            go(i) {
+                i = Math.max(0, Math.min(i, this.total - 1));
+                this.current = i;
+                this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                this.updateUI();
             }
 
-            setupProgressBar() {
-                this.progressBar = document.getElementById('progressBar');
-                this.updateProgressBar();
+            setupProgress() {
+                this.bar = document.getElementById('progressBar');
+                this.updateUI();
             }
 
-            updateProgressBar() {
-                const pct = ((this.currentSlide + 1) / this.totalSlides) * 100;
-                this.progressBar.style.width = pct + '%';
-            }
-
-            setupNavDots() {
-                const container = document.getElementById('navDots');
-                for (let i = 0; i < this.totalSlides; i++) {
-                    const dot = document.createElement('button');
-                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-                    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                    dot.addEventListener('click', () => this.goToSlide(i));
-                    container.appendChild(dot);
+            setupDots() {
+                const c = document.getElementById('navDots');
+                for (let i = 0; i < this.total; i++) {
+                    const d = document.createElement('button');
+                    d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+                    d.addEventListener('click', () => this.go(i));
+                    c.appendChild(d);
                 }
-                this.dots = container.querySelectorAll('.nav-dot');
+                this.dots = c.querySelectorAll('.nav-dot');
             }
 
-            updateNavDots() {
-                this.dots.forEach((d, i) => d.classList.toggle('active', i === this.currentSlide));
-            }
-
-            toggleFullscreen() {
-                if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
-                else document.exitFullscreen().catch(() => {});
+            updateUI() {
+                this.bar.style.width = ((this.current + 1) / this.total * 100) + '%';
+                this.dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === this.current);
+                    const isDark = this.slides[i].classList.contains('dark');
+                    d.classList.toggle('dark-ctx', this.slides[this.current].classList.contains('dark'));
+                });
             }
         }
 
