@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smarter Payment Routing for Cleveland Clinic</title>
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-dark: #1a3a5c;
+    --blue-mid: #2b6cb0;
+    --blue-light: #ebf4ff;
+    --blue-accent: #5469d4;
+    --green-dark: #1a6847;
+    --green-mid: #22a06b;
+    --green-light: #e6f9f0;
+    --green-accent: #00be64;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --red-soft: #fef2f2;
+    --red-mid: #ef4444;
+    --amber-soft: #fffbeb;
+    --amber-mid: #f59e0b;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: var(--gray-800);
+    background: var(--white);
+    line-height: 1.6;
+  }
+
+  /* ── Page Container ── */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 40px 32px;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .logo-howlite {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-howlite-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--blue-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-howlite-text {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--blue-accent);
+  }
+
+  .logo-separator {
+    color: var(--gray-300);
+    font-size: 24px;
+    font-weight: 200;
+  }
+
+  .logo-cc {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-600);
+    letter-spacing: 0.02em;
+  }
+
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--gray-900);
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .header .subtitle {
+    font-size: 18px;
+    color: var(--gray-500);
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── Flow Section ── */
+  .flows {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+
+  .flow-panel {
+    border-radius: 16px;
+    padding: 32px 28px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flow-panel--traditional {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+  }
+
+  .flow-panel--howlite {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f5ee 100%);
+    border: 2px solid var(--green-accent);
+    box-shadow: 0 0 0 4px rgba(0, 190, 100, 0.08);
+  }
+
+  .flow-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .flow-label--traditional {
+    background: var(--gray-200);
+    color: var(--gray-600);
+  }
+
+  .flow-label--howlite {
+    background: rgba(0, 190, 100, 0.12);
+    color: var(--green-dark);
+    border: 1px solid rgba(0, 190, 100, 0.3);
+  }
+
+  .flow-label-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+
+  .flow-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+
+  .flow-panel--traditional .flow-title { color: var(--gray-700); }
+  .flow-panel--howlite .flow-title { color: var(--green-dark); }
+
+  .flow-subtitle {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-bottom: 24px;
+  }
+
+  /* ── Flow Nodes ── */
+  .flow-nodes {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-node {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    position: relative;
+  }
+
+  .flow-panel--howlite .flow-node {
+    border-color: rgba(0, 190, 100, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .flow-node-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .flow-panel--traditional .flow-node-icon {
+    background: var(--gray-100);
+    color: var(--gray-500);
+  }
+
+  .flow-panel--howlite .flow-node-icon {
+    background: rgba(0, 190, 100, 0.1);
+    color: var(--green-accent);
+  }
+
+  .flow-node-icon--clinic {
+    background: var(--blue-light) !important;
+    color: var(--blue-mid) !important;
+  }
+
+  .flow-node-text {
+    flex: 1;
+  }
+
+  .flow-node-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-800);
+    line-height: 1.3;
+  }
+
+  .flow-node-desc {
+    font-size: 12px;
+    color: var(--gray-400);
+    line-height: 1.4;
+  }
+
+  .flow-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    position: relative;
+  }
+
+  .flow-connector::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+  }
+
+  .flow-panel--traditional .flow-connector::before {
+    background: var(--gray-300);
+  }
+
+  .flow-panel--howlite .flow-connector::before {
+    background: var(--green-accent);
+  }
+
+  .flow-connector-arrow {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    font-size: 10px;
+  }
+
+  .flow-panel--traditional .flow-connector-arrow {
+    background: var(--gray-200);
+    color: var(--gray-500);
+  }
+
+  .flow-panel--howlite .flow-connector-arrow {
+    background: var(--green-accent);
+    color: var(--white);
+  }
+
+  /* Arrow SVG */
+  .arrow-down {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+  }
+
+  /* ── Node count badge ── */
+  .node-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 16px;
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+
+  .node-count--traditional {
+    background: var(--red-soft);
+    color: var(--red-mid);
+  }
+
+  .node-count--howlite {
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  /* ── Recommended badge ── */
+  .recommended-badge {
+    position: absolute;
+    top: -1px;
+    right: 24px;
+    background: var(--green-accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 6px 16px;
+    border-radius: 0 0 8px 8px;
+    text-transform: uppercase;
+  }
+
+  /* ── Comparison Section ── */
+  .comparison {
+    margin-bottom: 48px;
+  }
+
+  .comparison h2 {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .comparison-sub {
+    text-align: center;
+    font-size: 15px;
+    color: var(--gray-500);
+    margin-bottom: 28px;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .comparison-table thead th {
+    padding: 16px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .comparison-table thead th:first-child {
+    background: var(--gray-800);
+    color: var(--white);
+    text-align: left;
+    width: 28%;
+  }
+
+  .comparison-table thead th:nth-child(2) {
+    background: var(--gray-600);
+    color: var(--white);
+    text-align: center;
+    width: 36%;
+  }
+
+  .comparison-table thead th:nth-child(3) {
+    background: var(--green-dark);
+    color: var(--white);
+    text-align: center;
+    width: 36%;
+  }
+
+  .comparison-table tbody td {
+    padding: 16px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+
+  .comparison-table tbody td:first-child {
+    font-weight: 600;
+    color: var(--gray-700);
+    background: var(--gray-50);
+  }
+
+  .comparison-table tbody td:nth-child(2) {
+    text-align: center;
+    color: var(--gray-600);
+    background: var(--white);
+  }
+
+  .comparison-table tbody td:nth-child(3) {
+    text-align: center;
+    color: var(--green-dark);
+    font-weight: 600;
+    background: var(--green-light);
+  }
+
+  .comparison-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .val-bad {
+    color: var(--red-mid) !important;
+    font-weight: 500;
+  }
+
+  .val-good {
+    color: var(--green-dark) !important;
+    font-weight: 600;
+  }
+
+  /* ── Dollar Impact ── */
+  .impact {
+    background: linear-gradient(135deg, var(--gray-900) 0%, var(--blue-dark) 100%);
+    border-radius: 16px;
+    padding: 40px 48px;
+    margin-bottom: 48px;
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .impact-text h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .impact-text p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .impact-numbers {
+    display: flex;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .impact-num-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .impact-num-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+    opacity: 0.6;
+  }
+
+  .impact-num {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .impact-num--trad { color: var(--gray-400); }
+  .impact-num--howlite { color: var(--green-accent); }
+  .impact-num--savings {
+    color: var(--amber-mid);
+    font-size: 42px;
+  }
+
+  .impact-num-context {
+    font-size: 12px;
+    opacity: 0.5;
+    font-weight: 500;
+  }
+
+  .impact-basis {
+    font-size: 12px;
+    opacity: 0.45;
+    margin-top: 16px;
+    font-style: italic;
+  }
+
+  /* ── Data Packet (inline flow annotation) ── */
+  .data-packet {
+    margin: 4px 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.6;
+    position: relative;
+  }
+
+  .data-packet--thin {
+    background: var(--red-soft);
+    border: 1px dashed rgba(239, 68, 68, 0.3);
+    color: var(--gray-500);
+  }
+
+  .data-packet--thin .data-packet-label {
+    color: var(--red-mid);
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .data-packet--rich {
+    background: linear-gradient(135deg, #e6f9f0 0%, #ebf4ff 100%);
+    border: 1px solid rgba(0, 190, 100, 0.3);
+    color: var(--gray-700);
+  }
+
+  .data-packet--rich .data-packet-label {
+    color: var(--green-dark);
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .data-packet-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .data-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .data-tag--dim {
+    background: var(--gray-100);
+    color: var(--gray-400);
+  }
+
+  .data-tag--bright {
+    background: rgba(0, 190, 100, 0.12);
+    color: var(--green-dark);
+  }
+
+  .data-tag--highlight {
+    background: rgba(84, 105, 212, 0.12);
+    color: var(--blue-accent);
+  }
+
+  /* ── Inquiry Burden Section ── */
+  .inquiry-section {
+    margin-bottom: 48px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .inquiry-header {
+    background: linear-gradient(135deg, #7c3aed 0%, #5469d4 100%);
+    padding: 28px 36px;
+    color: white;
+  }
+
+  .inquiry-header h2 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+
+  .inquiry-header p {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .inquiry-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+  }
+
+  .inquiry-col {
+    padding: 28px 32px;
+  }
+
+  .inquiry-col--before {
+    border-right: 2px solid var(--gray-100);
+  }
+
+  .inquiry-col-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+
+  .inquiry-col--before .inquiry-col-label {
+    background: var(--red-soft);
+    color: var(--red-mid);
+  }
+
+  .inquiry-col--after .inquiry-col-label {
+    background: var(--green-light);
+    color: var(--green-dark);
+  }
+
+  .inquiry-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .inquiry-step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .inquiry-col--before .inquiry-step-num {
+    background: var(--gray-200);
+    color: var(--gray-500);
+  }
+
+  .inquiry-col--after .inquiry-step-num {
+    background: var(--green-accent);
+    color: white;
+  }
+
+  .inquiry-step-text {
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  .inquiry-step-text strong {
+    color: var(--gray-800);
+  }
+
+  .inquiry-stat {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .inquiry-col--before .inquiry-stat {
+    background: var(--red-soft);
+  }
+
+  .inquiry-col--after .inquiry-stat {
+    background: var(--green-light);
+  }
+
+  .inquiry-stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .inquiry-col--before .inquiry-stat-num {
+    color: var(--red-mid);
+  }
+
+  .inquiry-col--after .inquiry-stat-num {
+    color: var(--green-accent);
+  }
+
+  .inquiry-stat-desc {
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+
+  /* ── Key Benefits Strip ── */
+  .benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .benefit-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .benefit-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--green-accent);
+  }
+
+  .benefit-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--green-light);
+    color: var(--green-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    font-size: 20px;
+  }
+
+  .benefit-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 6px;
+  }
+
+  .benefit-desc {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.5;
+  }
+
+  /* ── Spark / Pulse animation ── */
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(0, 190, 100, 0.08); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 190, 100, 0.15), 0 0 20px rgba(0, 190, 100, 0.1); }
+  }
+
+  .flow-panel--howlite {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .savings-shimmer {
+    background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 25%, #fff 50%, #fbbf24 75%, #f59e0b 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 24px 0 16px;
+    border-top: 1px solid var(--gray-200);
+    font-size: 12px;
+    color: var(--gray-400);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-weight: 600;
+    color: var(--gray-500);
+  }
+
+  .footer-right {
+    font-style: italic;
+  }
+
+  /* ── Print Styles ── */
+  @media print {
+    body { background: white; }
+    .page { padding: 24px 20px; max-width: 100%; }
+    .flow-panel--howlite { box-shadow: none; }
+    .impact { box-shadow: none; }
+    .benefit-card { break-inside: avoid; }
+    .comparison-table { box-shadow: none; border: 1px solid var(--gray-300); }
+  }
+
+  @media (max-width: 900px) {
+    .flows { grid-template-columns: 1fr; }
+    .impact { grid-template-columns: 1fr; text-align: center; }
+    .impact-numbers { justify-content: center; }
+    .benefits { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ═══ Header ═══ -->
+  <header class="header">
+    <div class="header-logos">
+      <div class="logo-howlite">
+        <div class="logo-howlite-mark">H</div>
+        <div class="logo-howlite-text">HOWLITE</div>
+      </div>
+      <span class="logo-separator">|</span>
+      <div class="logo-cc">Cleveland Clinic</div>
+    </div>
+    <h1>Smarter Payment Routing for Cleveland Clinic</h1>
+    <p class="subtitle">How Flywire + Howlite reduces costs and accelerates payments</p>
+  </header>
+
+  <!-- ═══ Side-by-Side Flows ═══ -->
+  <div class="flows">
+
+    <!-- Traditional Path -->
+    <div class="flow-panel flow-panel--traditional">
+      <div class="flow-label flow-label--traditional">
+        <span class="flow-label-dot" style="background: var(--gray-400);"></span>
+        Current Path
+      </div>
+      <div class="flow-title">Traditional Payment Routing</div>
+      <p class="flow-subtitle">Multiple intermediaries, each adding cost and delay</p>
+
+      <div class="flow-nodes">
+        <div class="flow-node">
+          <div class="flow-node-icon flow-node-icon--clinic">
+            <!-- Hospital icon -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M9 17h1"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Cleveland Clinic</div>
+            <div class="flow-node-desc">Patient pays with card</div>
+          </div>
+        </div>
+
+        <div class="flow-connector"><div class="flow-connector-arrow"><svg class="arrow-down" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v8M1 5l4 4 4-4"/></svg></div></div>
+
+        <div class="flow-node">
+          <div class="flow-node-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Flywire</div>
+            <div class="flow-node-desc">Payment orchestration</div>
+          </div>
+        </div>
+
+        <div class="flow-connector"><div class="flow-connector-arrow"><svg class="arrow-down" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v8M1 5l4 4 4-4"/></svg></div></div>
+
+        <div class="data-packet data-packet--thin">
+          <span class="data-packet-label">Data sent with payment</span>
+          <div class="data-packet-items">
+            <span class="data-tag data-tag--dim">Card #</span>
+            <span class="data-tag data-tag--dim">Amount</span>
+            <span class="data-tag data-tag--dim">Date</span>
+          </div>
+        </div>
+
+        <div class="flow-node">
+          <div class="flow-node-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Acquirer (e.g., Adyen)</div>
+            <div class="flow-node-desc">Processes the transaction, adds fees</div>
+          </div>
+        </div>
+
+        <div class="flow-connector"><div class="flow-connector-arrow"><svg class="arrow-down" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v8M1 5l4 4 4-4"/></svg></div></div>
+
+        <div class="flow-node">
+          <div class="flow-node-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Visa / Mastercard Network</div>
+            <div class="flow-node-desc">Card network routing and interchange fees</div>
+          </div>
+        </div>
+
+        <div class="flow-connector"><div class="flow-connector-arrow"><svg class="arrow-down" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v8M1 5l4 4 4-4"/></svg></div></div>
+
+        <div class="flow-node">
+          <div class="flow-node-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Issuing Bank</div>
+            <div class="flow-node-desc">Authorizes and settles in 2-5 business days</div>
+          </div>
+        </div>
+
+        <div class="data-packet data-packet--thin" style="margin-top: 12px;">
+          <span class="data-packet-label">What your team receives back</span>
+          <div class="data-packet-items">
+            <span class="data-tag data-tag--dim">Approved / Declined</span>
+            <span class="data-tag data-tag--dim">Auth Code</span>
+          </div>
+          <div style="font-size: 11px; color: var(--red-mid); margin-top: 6px; font-style: italic;">No procedure, patient, or billing context — manual reconciliation required</div>
+        </div>
+
+        <div class="node-count node-count--traditional">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          4+ intermediaries touching your funds
+        </div>
+      </div>
+    </div>
+
+    <!-- Howlite Path -->
+    <div class="flow-panel flow-panel--howlite">
+      <div class="recommended-badge">Recommended</div>
+      <div class="flow-label flow-label--howlite">
+        <span class="flow-label-dot" style="background: var(--green-accent);"></span>
+        Howlite Path
+      </div>
+      <div class="flow-title">Streamlined Payment Routing</div>
+      <p class="flow-subtitle">Fewer steps, lower costs, faster settlement</p>
+
+      <div class="flow-nodes">
+        <div class="flow-node">
+          <div class="flow-node-icon flow-node-icon--clinic">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9h1"/><path d="M9 13h1"/><path d="M9 17h1"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Cleveland Clinic</div>
+            <div class="flow-node-desc">Patient pays with card</div>
+          </div>
+        </div>
+
+        <div class="flow-connector"><div class="flow-connector-arrow"><svg class="arrow-down" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v8M1 5l4 4 4-4"/></svg></div></div>
+
+        <div class="flow-node">
+          <div class="flow-node-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Flywire</div>
+            <div class="flow-node-desc">Payment orchestration</div>
+          </div>
+        </div>
+
+        <div class="flow-connector"><div class="flow-connector-arrow"><svg class="arrow-down" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v8M1 5l4 4 4-4"/></svg></div></div>
+
+        <div class="data-packet data-packet--rich">
+          <span class="data-packet-label">Rich healthcare data travels with payment</span>
+          <div class="data-packet-items">
+            <span class="data-tag data-tag--bright">Patient ID</span>
+            <span class="data-tag data-tag--bright">Account #</span>
+            <span class="data-tag data-tag--highlight">CPT Procedure Code</span>
+            <span class="data-tag data-tag--highlight">ICD-10 Diagnosis</span>
+            <span class="data-tag data-tag--bright">Insurance Ref</span>
+            <span class="data-tag data-tag--highlight">Service Date</span>
+            <span class="data-tag data-tag--bright">Line Items</span>
+            <span class="data-tag data-tag--bright">Provider NPI</span>
+            <span class="data-tag data-tag--highlight">Copay vs Balance</span>
+          </div>
+        </div>
+
+        <div class="flow-node" style="border-color: var(--green-accent); box-shadow: 0 0 0 3px rgba(0, 190, 100, 0.1);">
+          <div class="flow-node-icon" style="background: var(--green-accent); color: white;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name" style="color: var(--green-dark);">Howlite</div>
+            <div class="flow-node-desc">Processes payment with full healthcare context attached</div>
+          </div>
+        </div>
+
+        <div class="flow-connector"><div class="flow-connector-arrow"><svg class="arrow-down" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0v8M1 5l4 4 4-4"/></svg></div></div>
+
+        <div class="flow-node">
+          <div class="flow-node-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          </div>
+          <div class="flow-node-text">
+            <div class="flow-node-name">Issuing Bank</div>
+            <div class="flow-node-desc">Authorized and settled same day</div>
+          </div>
+        </div>
+
+        <div class="data-packet data-packet--rich" style="margin-top: 12px;">
+          <span class="data-packet-label">What your team receives back</span>
+          <div class="data-packet-items">
+            <span class="data-tag data-tag--bright">Confirmed</span>
+            <span class="data-tag data-tag--bright">Settlement ID</span>
+            <span class="data-tag data-tag--highlight">Patient ID</span>
+            <span class="data-tag data-tag--highlight">Procedure Code</span>
+            <span class="data-tag data-tag--bright">Line-Item Breakdown</span>
+          </div>
+          <div style="font-size: 11px; color: var(--green-dark); margin-top: 6px; font-weight: 600;">Auto-reconciles with your billing system — no manual matching</div>
+        </div>
+
+        <div class="node-count node-count--howlite">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Only 2 intermediaries &mdash; faster and cheaper
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ Comparison Table ═══ -->
+  <div class="comparison">
+    <h2>Side-by-Side Comparison</h2>
+    <p class="comparison-sub">What changes when you remove the unnecessary middlemen</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Traditional Path</th>
+          <th>With Howlite</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Processing Fee</td>
+          <td class="val-bad">2.9% + $0.30 per transaction</td>
+          <td class="val-good">Below 0.5%</td>
+        </tr>
+        <tr>
+          <td>Settlement Time</td>
+          <td class="val-bad">2 &ndash; 5 business days</td>
+          <td class="val-good">Same day</td>
+        </tr>
+        <tr>
+          <td>Intermediaries</td>
+          <td class="val-bad">4+ parties</td>
+          <td class="val-good">2 parties</td>
+        </tr>
+        <tr>
+          <td>Transaction Data</td>
+          <td>Basic &mdash; card number + amount only</td>
+          <td class="val-good">Healthcare-rich &mdash; CPT codes, patient ID, diagnosis, line items, insurance context</td>
+        </tr>
+        <tr>
+          <td>Patient Inquiry Resolution</td>
+          <td class="val-bad">~12 minutes (cross-reference 3+ systems)</td>
+          <td class="val-good">~2 minutes (all context in one record)</td>
+        </tr>
+        <tr>
+          <td>Fund Holds</td>
+          <td class="val-bad">2 &ndash; 5 days</td>
+          <td class="val-good">None &mdash; zero float</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ Dollar Impact ═══ -->
+  <div class="impact">
+    <div class="impact-text">
+      <h3>The Dollar Impact</h3>
+      <p>On $10 million in annual patient card payments, traditional processing costs approximately $320,000. With Howlite routing through Flywire, that drops to approximately $50,000.</p>
+      <div class="impact-basis">Based on $10M annual card volume. Traditional at 2.9% + $0.30 avg. Howlite at below 0.5%.</div>
+    </div>
+    <div class="impact-numbers">
+      <div class="impact-num-block">
+        <div class="impact-num-label">Traditional</div>
+        <div class="impact-num impact-num--trad">$320K</div>
+        <div class="impact-num-context">per year</div>
+      </div>
+      <div class="impact-num-block">
+        <div class="impact-num-label">With Howlite</div>
+        <div class="impact-num impact-num--howlite">$50K</div>
+        <div class="impact-num-context">per year</div>
+      </div>
+      <div class="impact-num-block">
+        <div class="impact-num-label">Annual Savings</div>
+        <div class="impact-num impact-num--savings savings-shimmer">$270K</div>
+        <div class="impact-num-context">recovered</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Patient Inquiry Burden ═══ -->
+  <div class="inquiry-section">
+    <div class="inquiry-header">
+      <h2>Eliminating the #1 Revenue Cycle Burden</h2>
+      <p>"What is this charge for?" — the question that consumes thousands of staff hours annually</p>
+    </div>
+    <div class="inquiry-body">
+      <div class="inquiry-col inquiry-col--before">
+        <div class="inquiry-col-label">Today: Traditional Payments</div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">1</div>
+          <div class="inquiry-step-text">Patient calls: <strong>"I see a $847 charge — what was it for?"</strong></div>
+        </div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">2</div>
+          <div class="inquiry-step-text">Staff opens payment system — sees only <strong>amount + date + auth code</strong></div>
+        </div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">3</div>
+          <div class="inquiry-step-text">Staff cross-references <strong>billing system</strong> to find the encounter</div>
+        </div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">4</div>
+          <div class="inquiry-step-text">Staff cross-references <strong>EHR</strong> to find procedure details</div>
+        </div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">5</div>
+          <div class="inquiry-step-text">Staff cross-references <strong>insurance portal</strong> to explain copay vs balance</div>
+        </div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">6</div>
+          <div class="inquiry-step-text">Staff explains to patient: <strong>~12 minutes per inquiry</strong></div>
+        </div>
+        <div class="inquiry-stat">
+          <div class="inquiry-stat-num">12 min</div>
+          <div class="inquiry-stat-desc">Average handling time per patient payment inquiry</div>
+        </div>
+      </div>
+      <div class="inquiry-col inquiry-col--after">
+        <div class="inquiry-col-label">With Howlite</div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">1</div>
+          <div class="inquiry-step-text">Patient calls: <strong>"I see a $847 charge — what was it for?"</strong></div>
+        </div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">2</div>
+          <div class="inquiry-step-text">Staff opens payment record — sees <strong>procedure code, diagnosis, provider, line items, copay breakdown</strong> all in one place</div>
+        </div>
+        <div class="inquiry-step">
+          <div class="inquiry-step-num">3</div>
+          <div class="inquiry-step-text">Staff explains immediately: <strong>"This was your Oct 15 cardiology consult with Dr. Smith — $847 is your balance after insurance covered $1,200."</strong></div>
+        </div>
+        <div class="inquiry-step" style="opacity: 0;">
+          <div class="inquiry-step-num">.</div>
+          <div class="inquiry-step-text">&nbsp;</div>
+        </div>
+        <div class="inquiry-step" style="opacity: 0;">
+          <div class="inquiry-step-num">.</div>
+          <div class="inquiry-step-text">&nbsp;</div>
+        </div>
+        <div class="inquiry-step" style="opacity: 0;">
+          <div class="inquiry-step-num">.</div>
+          <div class="inquiry-step-text">&nbsp;</div>
+        </div>
+        <div class="inquiry-stat">
+          <div class="inquiry-stat-num">2 min</div>
+          <div class="inquiry-stat-desc">One screen, one answer — no system-hopping</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Key Benefits ═══ -->
+  <div class="benefits">
+    <div class="benefit-card">
+      <div class="benefit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="benefit-title">Fees Below 0.5%</div>
+      <div class="benefit-desc">Dramatically lower than the industry standard of 2.9% + $0.30 per transaction</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div class="benefit-title">Same-Day Settlement</div>
+      <div class="benefit-desc">Funds arrive the same day instead of waiting 2 to 5 business days</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="benefit-title">Detailed Data</div>
+      <div class="benefit-desc">Procedure codes, patient references, and line items for easy reconciliation</div>
+    </div>
+    <div class="benefit-card">
+      <div class="benefit-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="benefit-title">Zero Float</div>
+      <div class="benefit-desc">No funds held by intermediaries &mdash; your money moves directly</div>
+    </div>
+  </div>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="footer">
+    <div class="footer-left">Prepared for Cleveland Clinic &mdash; Confidential</div>
+    <div class="footer-right">Howlite &middot; The Unaffiliated Payment Network &middot; howlitecorp.com</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
