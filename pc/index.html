@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Howlite × Priority Commerce × Ambient — Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ═══════════════════════════════════════════════════
+   TOKENS — inherited from deck.howlitecorp.com
+═══════════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:      #0B0D1C;
+  --card:    #161A30;
+  --border:  rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --blue:    #5469D4;
+  --blue-lt: #7B8FE8;
+  --purple:  #8B5CF6;
+  --cyan:    #22D3EE;
+  --green:   #00BE64;
+  --amber:   #F59E0B;
+  --red:     #F43F5E;
+  --white:   #FFFFFF;
+  --off:     rgba(255,255,255,0.6);
+  --dim:     rgba(255,255,255,0.35);
+  --grid-ln: rgba(255,255,255,0.038);
+}
+
+body{
+  background:#000;overflow:hidden;
+  font-family:'Inter',-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+#stage{
+  position:absolute;
+  width:1280px;height:720px;
+  transform-origin:top left;
+  background:var(--bg);
+  overflow:hidden;
+}
+
+.grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid-ln) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-ln) 1px, transparent 1px);
+  background-size:64px 64px;
+}
+
+/* ═══════════════════════════════════════════════════
+   TOP BAR
+═══════════════════════════════════════════════════ */
+#top{position:absolute;top:0;left:100px;height:44px;display:flex;align-items:center}
+.pill{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:5px 14px;
+  border:1px solid rgba(245,158,11,0.3);
+  border-radius:999px;
+  font-size:10px;font-weight:600;
+  letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(245,158,11,0.85);
+}
+.pill-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;background:var(--amber)}
+
+/* ═══════════════════════════════════════════════════
+   HEADLINE
+═══════════════════════════════════════════════════ */
+#head{position:absolute;top:52px;left:100px;width:1080px;height:66px}
+#hl{
+  font-size:31px;font-weight:800;color:var(--white);
+  letter-spacing:-0.5px;line-height:1.12;
+  transition:opacity .28s ease, transform .28s ease;
+}
+#sub{
+  margin-top:8px;
+  font-size:13px;font-weight:400;color:var(--off);
+  line-height:1.5;max-width:1060px;
+  transition:opacity .28s ease, transform .28s ease;
+}
+#head.swap #hl,#head.swap #sub{opacity:0;transform:translateY(7px)}
+
+/* ═══════════════════════════════════════════════════
+   PRIORITY PERIMETER
+═══════════════════════════════════════════════════ */
+#bound{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .45s ease}
+#bound.on{opacity:1}
+#bound path{
+  fill:none;stroke:var(--blue-lt);stroke-width:1.5;
+  stroke-dasharray:7 6;opacity:.5;
+}
+#bound.on path{animation:dashRun 26s linear infinite}
+@keyframes dashRun{to{stroke-dashoffset:-260}}
+#boundtag{
+  position:absolute;top:568px;left:0;width:1280px;
+  display:flex;justify-content:center;
+  opacity:0;transition:opacity .45s ease .12s;
+}
+#boundtag.on{opacity:1}
+.btag{
+  background:var(--bg);padding:2px 16px;
+  font-size:9.5px;font-weight:700;letter-spacing:2.6px;
+  color:var(--blue-lt);text-transform:uppercase;
+}
+
+/* ═══════════════════════════════════════════════════
+   ZONES — shared
+═══════════════════════════════════════════════════ */
+.zone{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  transition:opacity .4s ease, filter .4s ease,
+             border-color .4s ease, box-shadow .4s ease, height .42s cubic-bezier(.4,0,.2,1),
+             flex-basis .45s cubic-bezier(.4,0,.2,1), background .4s ease;
+}
+.zone.dim{opacity:.22;filter:saturate(.25)}
+.zone.focus{z-index:20}
+
+.z-head{display:flex;align-items:center;gap:11px;padding:15px 20px 0}
+.z-ico{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+  transition:background .4s ease,color .4s ease;
+}
+.z-name{font-size:14px;font-weight:800;letter-spacing:1.6px;line-height:1.1;transition:color .4s ease}
+.z-org{font-size:9.5px;font-weight:600;letter-spacing:.9px;color:var(--dim);margin-top:3px;text-transform:uppercase;white-space:nowrap;transition:opacity .3s ease}
+
+/* resting content */
+.z-rest{transition:opacity .28s ease}
+.zone.focus .z-rest{opacity:0;pointer-events:none}
+.z-sum{padding:11px 20px 0;font-size:11.5px;color:var(--off);line-height:1.5}
+.z-chips{padding:15px 20px 0;display:flex;flex-direction:column;gap:9px}
+.z-chip{
+  display:flex;align-items:baseline;gap:9px;
+  font-size:11px;line-height:1.35;color:rgba(255,255,255,.72);
+}
+.z-chip::before{
+  content:'';width:14px;height:1px;flex-shrink:0;
+  background:currentColor;opacity:.45;transform:translateY(-4px);
+}
+
+/* detail — appears and enlarges on focus */
+.z-det{
+  position:absolute;left:0;right:0;top:58px;
+  padding:13px 20px 0;
+  opacity:0;transform:translateY(6px);pointer-events:none;
+  transition:opacity .38s ease .1s, transform .38s ease .1s;
+}
+.zone.focus .z-det{opacity:1;transform:translateY(0)}
+.z-det li{
+  list-style:none;position:relative;
+  padding-left:15px;margin-bottom:10px;
+  font-size:12.5px;line-height:1.46;color:rgba(255,255,255,.88);
+}
+.z-det li::before{
+  content:'';position:absolute;left:0;top:7px;
+  width:5px;height:5px;border-radius:50%;background:currentColor;
+}
+.z-det li em{font-style:normal;font-weight:700;color:var(--white)}
+.z-note{
+  margin-top:3px;padding:9px 12px;border-radius:9px;
+  font-size:11.5px;line-height:1.45;
+}
+
+/* ═══════════════════════════════════════════════════
+   ADMIN BAND — Ambient + Westfalia
+═══════════════════════════════════════════════════ */
+#admin{
+  position:absolute;top:122px;left:100px;width:1080px;height:84px;
+  overflow:hidden;pointer-events:auto;cursor:pointer;
+  border-color:rgba(139,92,246,.22);
+  background:linear-gradient(180deg,rgba(38,27,70,1),#161A30);
+}
+#admin.focus{
+  height:154px;
+  border-color:rgba(139,92,246,.5);
+  box-shadow:0 0 0 1px rgba(139,92,246,.2),0 18px 50px rgba(0,0,0,.55);
+}
+#admin .z-ico{background:rgba(139,92,246,.16);color:var(--purple)}
+#admin .z-name{color:var(--purple)}
+#admin .z-head{padding-top:13px}
+#admin .z-sum{padding-top:10px}
+.adm-row{
+  display:flex;gap:11px;padding:11px 20px 0;
+  opacity:0;transition:opacity .3s ease .12s;
+}
+#admin.focus .adm-row{opacity:1}
+.adm-c{
+  flex:1;background:rgba(255,255,255,.028);
+  border:1px solid var(--border);border-radius:10px;padding:10px 13px;
+}
+.adm-c.west{border-color:rgba(34,211,238,.28);background:rgba(34,211,238,.05)}
+.adm-k{
+  font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--dim);margin-bottom:5px;
+}
+.adm-c.west .adm-k{color:var(--cyan)}
+.adm-v{font-size:11.5px;line-height:1.45;color:rgba(255,255,255,.85)}
+.west-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 11px;border-radius:6px;
+  border:1px solid rgba(34,211,238,.3);background:rgba(34,211,238,.07);
+  font-size:9.5px;font-weight:700;letter-spacing:1.3px;color:var(--cyan);
+  text-transform:uppercase;
+}
+
+/* the drop from Ambient into the acceptance channel */
+#drop{
+  position:absolute;top:258px;left:949px;width:2px;height:48px;z-index:26;
+  background:linear-gradient(180deg,rgba(139,92,246,0),var(--purple));
+  opacity:0;transition:opacity .4s ease;
+}
+#drop.on{opacity:1}
+#drop::after{
+  content:'';position:absolute;bottom:-1px;left:-4px;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-top:7px solid var(--purple);
+}
+#drop .dd{
+  position:absolute;left:-2px;width:6px;height:6px;border-radius:50%;
+  background:var(--purple);box-shadow:0 0 9px var(--purple);opacity:0;
+}
+#drop.on .dd{animation:dropMove 2.4s ease-in-out infinite}
+@keyframes dropMove{0%{top:-4px;opacity:0}16%{opacity:1}84%{opacity:1}100%{top:42px;opacity:0}}
+
+/* ═══════════════════════════════════════════════════
+   SPINE
+═══════════════════════════════════════════════════ */
+#spine{
+  position:absolute;top:252px;left:100px;width:1080px;height:304px;
+  display:flex;align-items:stretch;gap:40px;pointer-events:auto;
+  transition:top .42s cubic-bezier(.4,0,.2,1),height .42s cubic-bezier(.4,0,.2,1);
+}
+#spine.pushed{top:296px;height:260px}
+#zIssue,#zAccept{flex:0 0 320px;cursor:pointer}
+#mid{flex:1 1 auto;min-width:0;cursor:pointer}
+
+#spine.mid-open   #zIssue,#spine.mid-open #zAccept{flex-basis:180px}
+#spine.left-open  #zIssue{flex-basis:460px}
+#spine.left-open  #zAccept{flex-basis:200px}
+#spine.right-open #zAccept{flex-basis:460px}
+#spine.right-open #zIssue{flex-basis:200px}
+
+#spine.mid-open .z-rest,#spine.mid-open .z-org{opacity:0}
+#spine.left-open #zAccept .z-rest,#spine.right-open #zIssue .z-rest{opacity:0}
+
+/* Priority blue on BOTH ends — same company, same colour */
+#zIssue,#zAccept{
+  border-color:rgba(123,143,232,.22);
+  background:linear-gradient(180deg,rgba(84,105,212,.08),rgba(22,26,48,.96));
+}
+#zIssue .z-ico,#zAccept .z-ico{background:rgba(84,105,212,.17);color:var(--blue-lt)}
+#zIssue .z-name,#zAccept .z-name{color:var(--blue-lt)}
+#zIssue .z-det li::before,#zAccept .z-det li::before{background:var(--blue-lt);opacity:.65}
+#zIssue.focus,#zAccept.focus{
+  border-color:rgba(123,143,232,.55);
+  box-shadow:0 0 0 1px rgba(123,143,232,.18),0 18px 50px rgba(0,0,0,.55);
+}
+.note-blue{background:rgba(84,105,212,.1);border:1px solid rgba(84,105,212,.24);color:rgba(255,255,255,.82)}
+.note-blue b{color:var(--blue-lt);font-weight:700}
+
+/* --- connectors in the gaps --- */
+.conn{
+  position:absolute;top:0;bottom:0;width:40px;z-index:6;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:30px;
+  pointer-events:none;
+  transition:left .45s cubic-bezier(.4,0,.2,1), right .45s cubic-bezier(.4,0,.2,1), opacity .4s ease;
+}
+#connL{left:320px}
+#connR{right:320px}
+#spine.mid-open   #connL{left:180px}
+#spine.mid-open   #connR{right:180px}
+#spine.left-open  #connL{left:460px}
+#spine.left-open  #connR{right:200px}
+#spine.right-open #connL{left:200px}
+#spine.right-open #connR{right:460px}
+.trk{position:relative;width:40px;height:2px;border-radius:2px;background:rgba(255,255,255,.09)}
+.bd{
+  position:absolute;top:50%;margin-top:-3px;left:-4px;
+  width:6px;height:6px;border-radius:50%;opacity:0;
+  background:var(--blue-lt);box-shadow:0 0 9px var(--blue-lt);
+}
+.flowing .bd{animation:beamL 2.4s ease-in-out infinite}
+.flowing .bd.rev{animation:beamR 2.4s ease-in-out infinite}
+@keyframes beamL{0%{left:-4px;opacity:0}14%{opacity:1}86%{opacity:1}100%{left:38px;opacity:0}}
+@keyframes beamR{0%{left:38px;opacity:0}14%{opacity:1}86%{opacity:1}100%{left:-4px;opacity:0}}
+.flowing.grn .bd{background:var(--green);box-shadow:0 0 9px var(--green)}
+.flowing.pur .bd{background:var(--purple);box-shadow:0 0 9px var(--purple)}
+
+/* ═══════════════════════════════════════════════════
+   THE MIDDLE
+═══════════════════════════════════════════════════ */
+#mid{
+  border-color:rgba(255,255,255,.09);
+  background:repeating-linear-gradient(
+    -45deg,rgba(255,255,255,.014) 0 9px,transparent 9px 18px),var(--card);
+  display:flex;flex-direction:column;
+}
+#mid .z-ico{background:rgba(255,255,255,.06);color:var(--dim)}
+#mid .z-name{color:rgba(255,255,255,.72)}
+
+#mid.legacy{border-color:rgba(244,63,94,.42);background:rgba(244,63,94,.045);
+  box-shadow:0 0 0 1px rgba(244,63,94,.14),0 18px 50px rgba(0,0,0,.5)}
+#mid.legacy .z-ico{background:rgba(244,63,94,.16);color:var(--red)}
+#mid.legacy .z-name{color:var(--red)}
+#mid.howlite{border-color:rgba(0,190,100,.45);background:rgba(0,190,100,.05);
+  box-shadow:0 0 0 1px rgba(0,190,100,.15),0 18px 50px rgba(0,0,0,.5)}
+#mid.howlite .z-ico{background:rgba(0,190,100,.16);color:var(--green)}
+#mid.howlite .z-name{color:var(--green)}
+
+.mid-rest{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:13px;padding:0 24px 12px;text-align:center;
+  transition:opacity .3s ease;
+}
+#mid.open .mid-rest{opacity:0;pointer-events:none;position:absolute;inset:0}
+.mid-q{font-size:12px;color:var(--off);line-height:1.55;max-width:250px;display:none}
+#mid .q-neutral{display:block}
+#mid.howlite .q-neutral{display:none}
+#mid.howlite .q-howlite{display:block}
+.mid-badge{display:none;gap:7px;flex-wrap:wrap;justify-content:center}
+#mid.howlite .mid-badge{display:flex}
+.mb{
+  padding:4px 11px;border-radius:6px;
+  background:rgba(0,190,100,.1);border:1px solid rgba(0,190,100,.28);
+  font-size:10px;font-weight:700;letter-spacing:.9px;color:var(--green);
+}
+.mid-rails{
+  display:flex;gap:8px;align-items:center;justify-content:center;
+  font-size:9.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;
+}
+#mid.howlite .mid-rails{display:none}
+.rail-chip{padding:3px 10px;border-radius:5px;border:1px solid var(--border2);color:var(--dim)}
+.rail-or{font-size:8.5px;color:rgba(255,255,255,.25);letter-spacing:1.4px}
+
+.mid-open-wrap{
+  flex:1;display:none;flex-direction:column;padding:8px 20px 14px;
+  opacity:0;transition:opacity .35s ease .12s;
+}
+#mid.open .mid-open-wrap.show{display:flex;opacity:1}
+
+.chain{flex:0 0 auto;margin:auto 0;display:flex;align-items:stretch;justify-content:space-between}
+.hop{
+  flex:1;min-width:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  text-align:center;padding:8px 3px 0;
+}
+.hop-ico{height:24px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:7px}
+.hop-ico i{line-height:1;display:block}
+.hop-n{font-size:9px;font-weight:800;letter-spacing:1px;line-height:1.15;min-height:11px}
+.hop-d{font-size:8.5px;color:var(--dim);line-height:1.4;margin-top:5px}
+.hop-ar{flex:0 0 14px;text-align:center;font-size:9px;opacity:.4;padding-top:14px}
+
+.chain.big .hop{padding-top:8px}
+.chain.big .hop-ico{height:34px;font-size:26px;margin-bottom:10px}
+.chain.big .hop-n{font-size:12px;letter-spacing:1.5px;min-height:14px}
+.chain.big .hop-d{font-size:10.5px;line-height:1.45;margin-top:8px;max-width:160px}
+.chain.big .hop-ar{flex:0 0 26px;font-size:12px;padding-top:18px}
+
+.mstat{display:flex;margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
+.mstat div{flex:1;text-align:center;border-right:1px solid var(--border);padding:0 6px}
+.mstat div:last-child{border-right:none}
+.mstat b{display:block;font-size:14px;font-weight:800;line-height:1.15}
+.mstat span{display:block;font-size:8.5px;letter-spacing:.8px;color:var(--dim);margin-top:4px;text-transform:uppercase}
+
+.mcall{margin-top:10px;padding:8px 13px;border-radius:9px;font-size:11.5px;line-height:1.45;text-align:center}
+.mcall.red{background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.24);color:rgba(255,255,255,.85)}
+.mcall.red b{color:var(--red);font-weight:700}
+.mcall.grn{background:rgba(0,190,100,.09);border:1px solid rgba(0,190,100,.24);color:rgba(255,255,255,.85)}
+.mcall.grn b{color:var(--green);font-weight:700}
+
+/* ═══════════════════════════════════════════════════
+   LOOP STRIP
+═══════════════════════════════════════════════════ */
+#loop{
+  position:absolute;top:598px;left:100px;width:1080px;
+  display:flex;
+  opacity:0;transform:translateY(8px);pointer-events:none;
+  transition:opacity .45s ease .1s,transform .45s ease .1s;
+}
+#loop.on{opacity:1;transform:translateY(0)}
+.lp{flex:1;text-align:center;padding:0 10px;border-right:1px solid var(--border)}
+.lp:last-child{border-right:none}
+.lp b{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
+.lp span{display:block;font-size:10.5px;color:var(--off);margin-top:4px;line-height:1.35}
+
+/* ═══════════════════════════════════════════════════
+   RAIL + CHROME
+═══════════════════════════════════════════════════ */
+#rail{position:absolute;bottom:32px;left:100px;width:1080px;display:flex;gap:7px}
+.rb{
+  flex:1;background:none;border:1px solid var(--border);
+  border-radius:8px;padding:8px 8px 9px;cursor:pointer;
+  font-family:'Inter',sans-serif;text-align:left;
+  transition:border-color .25s ease,background .25s ease;
+}
+.rb:hover{border-color:var(--border2);background:rgba(255,255,255,.03)}
+.rb:focus-visible{outline:2px solid var(--blue-lt);outline-offset:2px}
+.rb-n{font-size:8.5px;font-weight:700;letter-spacing:1.2px;color:var(--dim);display:block}
+.rb-t{font-size:10.5px;font-weight:600;color:var(--off);display:block;margin-top:3px;line-height:1.25}
+.rb.on{background:rgba(84,105,212,.13);border-color:rgba(123,143,232,.45)}
+.rb.on .rb-n{color:var(--blue-lt)}
+.rb.on .rb-t{color:var(--white)}
+
+#foot{
+  position:absolute;bottom:13px;left:100px;width:820px;
+  font-size:8.5px;color:rgba(255,255,255,.24);letter-spacing:.3px;
+}
+
+#nav{
+  position:fixed;bottom:14px;right:16px;
+  display:flex;align-items:center;gap:8px;
+  background:rgba(11,13,28,.92);backdrop-filter:blur(12px);
+  padding:6px 12px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.1);z-index:300;
+}
+.nbtn{
+  background:none;border:1px solid rgba(84,105,212,.45);
+  color:var(--blue-lt);width:24px;height:24px;border-radius:50%;
+  cursor:pointer;font-size:10px;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.nbtn:hover{background:rgba(84,105,212,.2)}
+.nbtn:focus-visible{outline:2px solid var(--blue-lt);outline-offset:2px}
+#ctr{color:var(--off);font-size:11px;min-width:38px;text-align:center;letter-spacing:.5px}
+#fsb{
+  position:fixed;bottom:14px;left:16px;z-index:300;
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(11,13,28,.8);border:1px solid rgba(255,255,255,.1);
+  border-radius:8px;
+  font-size:12px;color:var(--dim);font-family:'Inter',sans-serif;cursor:pointer;transition:color .2s;
+}
+#fsb:hover{color:var(--blue-lt)}
+#fsb:focus-visible{outline:2px solid var(--blue-lt);outline-offset:2px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<div id="stage">
+  <div class="grid-bg"></div>
+
+  <div id="top">
+    <div class="pill"><span class="pill-dot"></span>Concept for discussion</div>
+  </div>
+
+  <div id="head">
+    <div id="hl">One card, end to end.</div>
+    <div id="sub">Priority issues the card and acquires the merchants that accept it. Ambient decides where the benefit is spent.</div>
+  </div>
+
+  <svg id="bound" viewBox="0 0 1280 720" preserveAspectRatio="none">
+    <path d="M 420 252 H 112 Q 100 252 100 264 V 544 Q 100 556 112 556
+             H 410 Q 420 556 420 566 Q 420 576 430 576
+             H 850 Q 860 576 860 566 Q 860 556 870 556
+             H 1168 Q 1180 556 1180 544 V 264 Q 1180 252 1168 252 H 860"/>
+  </svg>
+  <div id="boundtag"><span class="btag">Priority</span></div>
+
+  <!-- ADMIN BAND -->
+  <div class="zone" id="admin">
+    <div class="z-head">
+      <div class="z-ico"><i class="fas fa-clipboard-list"></i></div>
+      <div style="flex:1">
+        <div class="z-name">AMBIENT</div>
+        <div class="z-org">ICHRA plan administration &middot; a Priority company</div>
+      </div>
+      <div class="west-tag"><i class="fas fa-wand-magic-sparkles"></i> Westfalia &middot; SmartEOB</div>
+    </div>
+    <div class="z-rest">
+      <div class="z-sum">Plan documents, elections, substantiation and payment administration &mdash; sold through TPAs, brokers and employers.</div>
+    </div>
+    <div class="adm-row">
+      <div class="adm-c">
+        <div class="adm-k">Channel</div>
+        <div class="adm-v">TPAs, benefits consultants, brokers and employers.</div>
+      </div>
+      <div class="adm-c">
+        <div class="adm-k">Where the benefit goes</div>
+        <div class="adm-v">Carriers for premium. Medical providers for qualified expenses.</div>
+      </div>
+      <div class="adm-c west">
+        <div class="adm-k">Westfalia &middot; SmartEOB</div>
+        <div class="adm-v">AI bill review, denial appeals and EOB chat &mdash; substantiation without the manual step.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="drop"><span class="dd"></span></div>
+
+  <!-- SPINE -->
+  <div id="spine">
+
+    <div class="zone" id="zIssue">
+      <div class="z-head">
+        <div class="z-ico"><i class="fas fa-credit-card"></i></div>
+        <div>
+          <div class="z-name">ISSUING</div>
+          <div class="z-org">Priority &middot; Passport</div>
+        </div>
+      </div>
+      <div class="z-rest">
+        <div class="z-chips">
+          <div class="z-chip">Passport &mdash; the BaaS platform acquired with Finxera</div>
+          <div class="z-chip">Named Wells Fargo accounts and sub-ledgering</div>
+          <div class="z-chip">Cards issued on Priority&rsquo;s own existing BINs</div>
+          <div class="z-chip">The ICHRA cardholder</div>
+        </div>
+      </div>
+      <ul class="z-det">
+        <li>Passport, the BaaS platform acquired with Finxera &mdash; named Wells Fargo accounts, sub-ledgering, money transmission.</li>
+        <li>Cards issued on <em>Priority&rsquo;s own existing BINs</em>.</li>
+        <li>Enabling them is an API integration: same card, same BIN, no new programme.</li>
+        <div class="z-note note-blue">No card-network registrations or programme-manager obligations attach to <b>Priority</b> or to <b>Howlite</b> on this path.</div>
+      </ul>
+    </div>
+
+    <div class="zone" id="mid">
+      <div class="z-head">
+        <div class="z-ico"><i class="fas fa-network-wired"></i></div>
+        <div>
+          <div class="z-name" id="midName">THE MIDDLE</div>
+          <div class="z-org" id="midOrg">Either network</div>
+        </div>
+      </div>
+      <div class="mid-rest">
+        <div class="mid-q q-neutral">The leg between Priority&rsquo;s two ends.</div>
+        <div class="mid-q q-howlite">The same leg, on an unaffiliated network.</div>
+        <div class="mid-rails">
+          <span class="rail-chip">Visa / Mastercard</span>
+          <span class="rail-or">or</span>
+          <span class="rail-chip">Howlite</span>
+        </div>
+        <div class="mid-badge">
+          <span class="mb">3 parties</span><span class="mb">Flat fee</span>
+          <span class="mb">T+0</span><span class="mb">Line-item data</span>
+        </div>
+      </div>
+
+      <div class="mid-open-wrap" id="midLegacy">
+        <div class="chain">
+          <div class="hop"><div class="hop-ico" style="color:var(--red)"><i class="fas fa-store"></i></div><div class="hop-n" style="color:var(--red)">ACQUIRER</div><div class="hop-d">Processor takes a cut</div></div>
+          <div class="hop-ar" style="color:var(--red)"><i class="fas fa-chevron-right"></i></div>
+          <div class="hop"><div class="hop-ico" style="color:var(--red)"><i class="fas fa-network-wired"></i></div><div class="hop-n" style="color:var(--red)">NETWORK</div><div class="hop-d">Routing fees</div></div>
+          <div class="hop-ar" style="color:var(--red)"><i class="fas fa-chevron-right"></i></div>
+          <div class="hop"><div class="hop-ico" style="color:var(--red)"><i class="fas fa-building-columns"></i></div><div class="hop-n" style="color:var(--red)">ISSUER</div><div class="hop-d">Interchange added</div></div>
+          <div class="hop-ar" style="color:var(--red)"><i class="fas fa-chevron-right"></i></div>
+          <div class="hop"><div class="hop-ico" style="color:var(--red)"><i class="fas fa-vault"></i></div><div class="hop-n" style="color:var(--red)">CUSTODIAN</div><div class="hop-d">Funds held</div></div>
+          <div class="hop-ar" style="color:var(--red)"><i class="fas fa-chevron-right"></i></div>
+          <div class="hop"><div class="hop-ico" style="color:var(--red)"><i class="fas fa-file-invoice"></i></div><div class="hop-n" style="color:var(--red)">TPA</div><div class="hop-d">Manual substantiation</div></div>
+          <div class="hop-ar" style="color:var(--red)"><i class="fas fa-chevron-right"></i></div>
+          <div class="hop"><div class="hop-ico" style="color:var(--red)"><i class="fas fa-hourglass-half"></i></div><div class="hop-n" style="color:var(--red)">ACH BATCH</div><div class="hop-d">T+3 to T+5</div></div>
+        </div>
+        <div class="mstat">
+          <div><b style="color:var(--red)">6+</b><span>Parties</span></div>
+          <div><b style="color:var(--red)">2&ndash;4%</b><span>+ markups</span></div>
+          <div><b style="color:var(--red)">None</b><span>Line-item data</span></div>
+          <div><b style="color:var(--red)">T+3&ndash;5</b><span>Settlement</span></div>
+        </div>
+        <div class="mcall red">A premium is <b>large, predictable and recurring</b>. A percentage taken from it never stops.</div>
+      </div>
+
+      <div class="mid-open-wrap" id="midHowlite">
+        <div class="chain big">
+          <div class="hop"><div class="hop-ico" style="color:var(--green)"><i class="fas fa-bolt"></i></div><div class="hop-n" style="color:var(--green)">AUTHORIZE</div><div class="hop-d">The merchant posts the purchase payload. Line-item detail captured at source.</div></div>
+          <div class="hop-ar" style="color:var(--green)"><i class="fas fa-chevron-right"></i></div>
+          <div class="hop"><div class="hop-ico" style="color:var(--green)"><i class="fas fa-circle-check"></i></div><div class="hop-n" style="color:var(--green)">VALIDATE</div><div class="hop-d">Eligibility and substantiation decided against clinical data, not a receipt chase.</div></div>
+          <div class="hop-ar" style="color:var(--green)"><i class="fas fa-chevron-right"></i></div>
+          <div class="hop"><div class="hop-ico" style="color:var(--green)"><i class="fas fa-right-left"></i></div><div class="hop-n" style="color:var(--green)">SETTLE</div><div class="hop-d">Stablecoin on Treasury-backed reserves that earn continuously, direct to the merchant.</div></div>
+        </div>
+        <div class="mstat">
+          <div><b style="color:var(--green)">3</b><span>Parties</span></div>
+          <div><b style="color:var(--green)">Flat</b><span>Per transaction</span></div>
+          <div><b style="color:var(--green)">Line-item</b><span>+ clinical data</span></div>
+          <div><b style="color:var(--green)">T+0</b><span>Settlement</span></div>
+        </div>
+        <div class="mcall grn">Both paths run side by side &mdash; an enabled card <b>keeps its existing network</b> for everything else.</div>
+      </div>
+    </div>
+
+    <div class="zone" id="zAccept">
+      <div class="z-head">
+        <div class="z-ico"><i class="fas fa-house-medical"></i></div>
+        <div>
+          <div class="z-name">ACCEPTANCE</div>
+          <div class="z-org">Priority &middot; acquiring</div>
+        </div>
+      </div>
+      <div class="z-rest">
+        <div class="z-chips">
+          <div class="z-chip">SMB acquiring and gateway &mdash; already the merchant relationship</div>
+          <div class="z-chip">Carriers, for premium</div>
+          <div class="z-chip">Medical providers, for qualified expenses</div>
+          <div class="z-chip">Ambient&rsquo;s merchant book</div>
+        </div>
+      </div>
+      <ul class="z-det">
+        <li>Full-service acquiring and gateway &mdash; <em>already the merchant relationship</em>.</li>
+        <li>Carriers for premium. Medical providers for qualified expenses.</li>
+        <li>Purchase data flows on <em>any</em> card from day one: the merchant posts the payload, line-item detail is recorded, no funds move.</li>
+        <li>Full routing and settlement follows once the card is enabled.</li>
+      </ul>
+    </div>
+
+    <div class="conn" id="connL">
+      <div class="trk"><div class="bd"></div></div>
+      <div class="trk"><div class="bd rev"></div></div>
+    </div>
+    <div class="conn" id="connR">
+      <div class="trk"><div class="bd"></div></div>
+      <div class="trk"><div class="bd rev"></div></div>
+    </div>
+
+  </div><!-- /spine -->
+
+  <div id="loop">
+    <div class="lp"><b style="color:var(--blue-lt)">Priority</b><span>issues the card</span></div>
+    <div class="lp"><b style="color:var(--purple)">Ambient</b><span>directs where it is spent</span></div>
+    <div class="lp"><b style="color:var(--blue-lt)">Carriers &amp; providers</b><span>accept it</span></div>
+    <div class="lp"><b style="color:var(--green)">Howlite</b><span>routes and settles it</span></div>
+    <div class="lp"><b style="color:var(--cyan)">Westfalia</b><span>reviews what it paid for</span></div>
+  </div>
+
+  <div id="rail"></div>
+  <div id="foot">Ambient and Priority capabilities as publicly described. Howlite and Westfalia elements are proposed.</div>
+</div>
+
+<div id="nav">
+  <button class="nbtn" id="pb" aria-label="Previous step"><i class="fas fa-chevron-left"></i></button>
+  <span id="ctr">1 / 5</span>
+  <button class="nbtn" id="nb" aria-label="Next step"><i class="fas fa-chevron-right"></i></button>
+</div>
+<button id="fsb" title="Fullscreen (F)" aria-label="Toggle fullscreen"><i class="fas fa-expand"></i></button>
+
+<script>
+/* ── canvas scale ─────────────────────────────── */
+const stage=document.getElementById('stage');
+function scale(){
+  const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+  stage.style.transform='scale('+s+')';
+  stage.style.left=((window.innerWidth-1280*s)/2)+'px';
+  stage.style.top=((window.innerHeight-720*s)/2)+'px';
+}
+scale(); addEventListener('resize',scale);
+
+/* ── elements ─────────────────────────────────── */
+const admin=document.getElementById('admin'),
+      zIssue=document.getElementById('zIssue'),
+      zAccept=document.getElementById('zAccept'),
+      mid=document.getElementById('mid'),
+      spine=document.getElementById('spine'),
+      bound=document.getElementById('bound'),
+      boundtag=document.getElementById('boundtag'),
+      loop=document.getElementById('loop'),
+      drop=document.getElementById('drop'),
+      head=document.getElementById('head'),
+      hl=document.getElementById('hl'),
+      sub=document.getElementById('sub'),
+      rail=document.getElementById('rail'),
+      ctr=document.getElementById('ctr'),
+      midName=document.getElementById('midName'),
+      midOrg=document.getElementById('midOrg'),
+      midLegacy=document.getElementById('midLegacy'),
+      midHowlite=document.getElementById('midHowlite'),
+      conns=[document.getElementById('connL'),document.getElementById('connR')],
+      ZONES=[admin,zIssue,zAccept,mid];
+
+/* ── steps ────────────────────────────────────── */
+const STEPS=[
+ {tab:'The loop',
+  hl:'One card, end to end.',
+  sub:'Priority issues the card and acquires the merchants that accept it. Ambient decides where the benefit is spent.',
+  lit:[admin,zIssue,zAccept,mid], midState:'howlite',
+  name:'HOWLITE', org:'Routing and settlement',
+  bound:true, loop:true, flow:'grn'},
+
+ {tab:'Issuing',
+  hl:'The card is already Priority’s.',
+  sub:'Passport issues on Priority’s own BINs through Wells Fargo. Enabling those cards for Howlite changes nothing a cardholder would notice.',
+  focus:[zIssue], open:'left-open',
+  name:'THE MIDDLE', org:'Either network'},
+
+ {tab:'Administration & acceptance',
+  hl:'Ambient decides where the money goes.',
+  sub:'The benefit lands with carriers and providers Priority already acquires — and the payment runs from there to the network and back to the card.',
+  focus:[admin,zAccept], lit:[mid,zIssue], open:'right-open',
+  name:'THE MIDDLE', org:'Either network',
+  drop:true, flow:'pur'},
+
+ {tab:'Visa / Mastercard network',
+  hl:'Today those transactions run on Visa and Mastercard.',
+  sub:'Six or more intermediaries between Priority’s two ends — arriving smaller, days later, carrying no line-item detail.',
+  focus:[mid], midOpen:'legacy',
+  name:'VISA / MASTERCARD NETWORK', org:'Traditional card rails'},
+
+ {tab:'Howlite enabled',
+  hl:'The same card can also run Howlite.',
+  sub:'Same card, same BINs, same merchant relationships. A Howlite-enabled card keeps running on its existing network for everything else.',
+  focus:[mid], midOpen:'howlite',
+  name:'HOWLITE ENABLED', org:'Unaffiliated network'}
+];
+
+let cur=-1;
+
+STEPS.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='rb';
+  b.innerHTML='<span class="rb-n">'+(i+1)+'</span><span class="rb-t">'+s.tab+'</span>';
+  b.onclick=()=>go(i);
+  rail.appendChild(b);
+});
+const tabs=[...rail.children];
+
+function go(n){
+  if(n<0||n>=STEPS.length||n===cur) return;
+  const s=STEPS[n]; cur=n;
+
+  head.classList.add('swap');
+  setTimeout(()=>{hl.textContent=s.hl; sub.textContent=s.sub; head.classList.remove('swap');},260);
+
+  const on=[...(s.focus||[]),...(s.lit||[])];
+  ZONES.forEach(z=>{
+    z.classList.remove('focus','dim');
+    if(!on.includes(z)) z.classList.add('dim');
+  });
+  (s.focus||[]).forEach(z=>z.classList.add('focus'));
+
+  mid.classList.remove('open','legacy','howlite');
+  spine.classList.remove('mid-open','left-open','right-open','pushed');
+  if((s.focus||[]).includes(admin)) spine.classList.add('pushed');
+  midLegacy.classList.remove('show');
+  midHowlite.classList.remove('show');
+  if(s.midOpen){
+    spine.classList.add('mid-open');
+    mid.classList.add('open',s.midOpen);
+    (s.midOpen==='legacy'?midLegacy:midHowlite).classList.add('show');
+  } else {
+    if(s.open) spine.classList.add(s.open);
+    if(s.midState) mid.classList.add(s.midState);
+  }
+  midName.textContent=s.name;
+  midOrg.textContent=s.org;
+
+  conns.forEach(c=>{
+    c.classList.remove('flowing','grn','pur');
+    if(s.flow){c.classList.add('flowing'); if(s.flow!==true) c.classList.add(s.flow);}
+    c.style.opacity=s.midOpen?0:1;
+  });
+
+  drop.classList.toggle('on',!!s.drop);
+  bound.classList.toggle('on',!!s.bound);
+  boundtag.classList.toggle('on',!!s.bound);
+  loop.classList.toggle('on',!!s.loop);
+
+  tabs.forEach((t,i)=>t.classList.toggle('on',i===n));
+  ctr.textContent=(n+1)+' / '+STEPS.length;
+}
+
+/* ── navigation ───────────────────────────────── */
+const next=()=>go(Math.min(cur+1,STEPS.length-1));
+const prev=()=>go(Math.max(cur-1,0));
+document.getElementById('nb').onclick=next;
+document.getElementById('pb').onclick=prev;
+[[admin,2],[zIssue,1],[zAccept,2],[mid,4]].forEach(([z,i])=>z.addEventListener('click',()=>go(i)));
+
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='ArrowDown'){e.preventDefault();next();}
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();prev();}
+  else if(e.key==='Home'){e.preventDefault();go(0);}
+  else if(e.key==='End'){e.preventDefault();go(STEPS.length-1);}
+  else if(e.key==='f'||e.key==='F'){toggleFS();}
+  else if(/^[1-5]$/.test(e.key)){go(+e.key-1);}
+});
+
+function toggleFS(){
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(()=>{});
+  else document.exitFullscreen?.();
+}
+document.getElementById('fsb').onclick=toggleFS;
+
+go(0);
+</script>
+</body>
+</html>
